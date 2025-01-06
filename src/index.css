@@ -1,10 +1,20 @@
+
+/* Moneygraphy-Rounded 폰트 */
+@font-face {
+  font-family: "Moneygraphy-Rounded";
+  font-weight: normal;
+  src: url("./assets/font/Moneygraphy-Rounded.ttf");
+  font-weight: normal;
+  font-style: normal;
+      
+}
+
+
+/* 전역 폰트 적용 */
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* font-family: "Moneygraphy-Rounded", sans-serif !important; */
+  font-family: sans-serif !important;
+
 }
 
 code {
