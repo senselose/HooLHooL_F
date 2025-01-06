@@ -187,7 +187,7 @@ function Register() {
           if (!isIdValid) return; // 유효하지 않은 경우 API 호출 중단   
 
           try {
-            const response = await axios.get("http://localhost:8080/api/auth/checkId", {
+            const response = await axios.get("http://localhost:8080/api/v1/auth/checkId", {
               params: { userId : formData.userId },
             });
             console.log("Axios 응답:", response.data); // 응답 디버깅
@@ -219,7 +219,7 @@ function Register() {
           }
         
           try {
-            const response = await axios.get("http://localhost:8080/api/auth/checkMail", {
+            const response = await axios.get("http://localhost:8080/api/v1/auth/checkMail", {
               params: { email: formData.email },
             });
             console.log("Axios 응답:", response.data); // 응답 디버깅
@@ -254,7 +254,7 @@ function Register() {
 
 
           try {
-            const response = await axios.get("http://localhost:8080/api/auth/checkNickName", {
+            const response = await axios.get("http://localhost:8080/api/v1/auth/checkNickName", {
               params: { nickname: formData.nickname },
             });
             console.log("Axios 응답:", response.data); // 응답 디버깅
@@ -306,7 +306,7 @@ function Register() {
     const { userId, password, name, email, nickname, tell, agreeMarketing, local } = formData;
 
     try {
-      const response = await axios.post('http://localhost:8080/api/auth/register', {
+      const response = await axios.post('http://localhost:8080/api/v1/auth/register', {
         userId,
         password,
         name,

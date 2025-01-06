@@ -12,7 +12,7 @@ function FindId({ onClose }) {
 
   const handleFindIdSubmit = async () => {
     try {
-      const response = await axios.post('/api/auth/findId', null, { params: formData });
+      const response = await axios.post('/api/v1/auth/findId', null, { params: formData });
       if (response.data.username) {
         setResponseMessage(`아이디는 "${response.data.username}" 입니다.`);
       } else {

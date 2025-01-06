@@ -14,7 +14,7 @@ function ResetPassword({ onClose }) {
 
   const handleSendVerificationCode = async () => {
     try {
-      await axios.post('/api/auth/sendVerificationCode', { phone: formData.phone });
+      await axios.post('/api/v1/auth/sendVerificationCode', { phone: formData.phone });
       setIsCodeSent(true);
       alert('인증번호가 발송되었습니다.');
     } catch (error) {
@@ -24,7 +24,7 @@ function ResetPassword({ onClose }) {
 
   const handleVerifyCode = async () => {
     try {
-      const response = await axios.post('/api/auth/verifyCode', {
+      const response = await axios.post('/api/v1/auth/verifyCode', {
         phone: formData.phone,
         code: formData.verificationCode,
       });
@@ -41,7 +41,7 @@ function ResetPassword({ onClose }) {
 
   const handleNewPasswordSubmit = async () => {
     try {
-      await axios.post('/api/auth/updatePassword', {
+      await axios.post('/api/v1/auth/updatePassword', {
         id: formData.id,
         newPassword: formData.newPassword,
       });

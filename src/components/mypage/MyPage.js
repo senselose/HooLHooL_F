@@ -75,7 +75,7 @@ const MyPage = () => {
           return;
         }
   
-        const response = await fetch("http://localhost:8080/api/auth/check", {
+        const response = await fetch("http://localhost:8080/api/v1/auth/check", {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`, // JWT 전달
@@ -90,7 +90,7 @@ const MyPage = () => {
         dispatch({ type: "SET_USER_ID", payload: userId }); // Redux 상태 업데이트
   
         // 사용자 정보를 가져오기
-        const userResponse = await fetch(`http://localhost:8080/api/user/${userId}`, {
+        const userResponse = await fetch(`http://localhost:8080/api/v1/user/${userId}`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`, // JWT 전달
@@ -133,7 +133,7 @@ const MyPage = () => {
   // 비밀번호 확인
   const handlePasswordCheck = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/api/user/${userId}/checkPassword`, {
+      const response = await fetch(`http://localhost:8080/api/v1/user/${userId}/checkPassword`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -173,7 +173,7 @@ const MyPage = () => {
   // 자기소개 수정 완료 (확인버튼)
   const handleSaveInfo = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/api/user/${userId}/updateInfo`, {
+      const response = await fetch(`http://localhost:8080/api/v1/user/${userId}/updateInfo`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -239,7 +239,7 @@ const MyPage = () => {
         delete payload.password;
       }
   
-      const response = await fetch(`http://localhost:8080/api/user/${userId}/update`, {
+      const response = await fetch(`http://localhost:8080/api/v1/user/${userId}/update`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -271,7 +271,7 @@ const MyPage = () => {
       const formData = new FormData();
       formData.append("file", file);
   
-      fetch(`http://localhost:8080/api/user/${userId}/uploadProfilePicture`, {
+      fetch(`http://localhost:8080/api/v1/user/${userId}/uploadProfilePicture`, {
         method: "POST",
         body: formData,
       })
