@@ -1,3 +1,12 @@
+
+/* 프로젝트 전역에 걸쳐서 사용할 색상*/
+:root {
+  --primary-color: #ff7a59;
+  --text-color: #333;
+  --link-color: #007bff;
+  --font-family: "Arial", sans-serif;
+}
+
 .App {
   text-align: center;
 }

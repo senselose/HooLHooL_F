@@ -86,6 +86,8 @@ const MyPage = () => {
           throw new Error("사용자 인증 실패");
         }
   
+
+
         const { userId } = await response.json(); // 서버에서 userId 추출
         dispatch({ type: "SET_USER_ID", payload: userId }); // Redux 상태 업데이트
   
@@ -111,7 +113,7 @@ const MyPage = () => {
           marketing: userData.marketing === 1,
           password: "",
         });
-  
+        
         setLoading(false); // 로딩 상태 해제
       } catch (error) {
         console.error("Error:", error.message);
@@ -271,10 +273,21 @@ const MyPage = () => {
       const formData = new FormData();
       formData.append("file", file);
   
-      fetch(`http://localhost:8080/api/v1/user/${userId}/uploadProfilePicture`, {
+      fetch(`http://localhost:8080/api/v1/user/${userId}/uploadProfileImage`, {
         method: "POST",
         body: formData,
+        
       })
+    // const apiPath = `http://localhost:8080/api/v1/user/${userId}/uploadProfileImage`;
+    // console.log("API 호출 경로:", apiPath); // 경로 출력
+
+    // const formData = new FormData();
+    // formData.append("file", file);
+
+    // fetch(apiPath, {
+    //   method: "POST",
+    //   body: formData,
+    // })      
         .then((response) => {
           if (!response.ok) {
             throw new Error("이미지 업로드 실패");

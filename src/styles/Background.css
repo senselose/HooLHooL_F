@@ -1,0 +1,10 @@
+/* styles/Background/background.css */
+
+/* 기본 배경 */
+.background {
+    width: 100%;
+    height: 100%;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+}

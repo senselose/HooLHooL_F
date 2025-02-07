@@ -1,0 +1,93 @@
+/* Container 스타일 */
+.register-container {
+  width: 90%;
+  max-width: 375px;
+  height: 100vh;
+  background: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 5%;
+  background-image: url("assets/image/blur_ver9.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Header 스타일 */
+.register-container .register-header h1 {
+  width: 80%;
+  padding-top: 25%;
+  padding-bottom: 10%;
+  font-size: 6vw;
+  color: var(--text-color);
+  text-align: left;
+  margin: 5% 5% 2% 5%;
+}
+
+/* Form 스타일 */
+.register-form {
+  width: 80%;
+  max-width: 375px;
+  height: 100vh;
+  padding: 5% 10%;
+}
+
+/* 단계별 스타일 */
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* 왼쪽 정렬 */
+  gap: 15px;
+  width: 100%;
+}
+
+.step input {
+  border: none;
+  padding: 10px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 90%;
+}
+
+
+/* 버튼 스타일 */
+.register-button,
+/* 버튼을 포함하는 부모 컨테이너 스타일 */
+.step-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%; /* 부모 컨테이너 너비를 100%로 설정 */
+  margin-top: 2%; 
+}
+
+.step-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 30px;
+  background-color: var(--primary-color);
+  color: white;
+  cursor: pointer;
+}
+
+.step-buttons button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+
+
+
+/* 유효성 메시지 */
+.validation-message {
+  font-size: 0.8rem;
+  margin-top: 5px;
+}
+
+.validation-message.success {
+  color: green;
+}
+
+.validation-message.error {
+  color: red;
+}
