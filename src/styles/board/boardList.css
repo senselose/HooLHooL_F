@@ -1,0 +1,95 @@
+.board-main-wrapper {
+    width: 100%;
+    padding: 20px;
+  }
+  
+  /* 게시판 타입 버튼 */
+  .board-main-type {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .type-btn {
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 20px;
+    font-weight: bold;
+    background-color: #ddd;
+  }
+  
+  .type-btn.active {
+    background-color: #4EBBFF;
+    color: white;
+  }
+  
+  /* 정렬 옵션 */
+  .board-main-sort {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .sort-btn {
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    font-size: 0.9rem;
+  }
+  
+  .sort-btn.active {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+  
+  /* 게시글 리스트 */
+  .board-main-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* 게시글 */
+  .board-post {
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .post-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  
+  .post-type {
+    font-size: 1.5rem;
+  }
+  
+  .post-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: gray;
+  }
+  
+  /* 글쓰기 버튼 */
+  .board-create-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 12px 15px;
+    background-color: #4EBBFF;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  

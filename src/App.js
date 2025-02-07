@@ -4,9 +4,9 @@ import "./index.css";
 
 import Login from 'components/login/Login';
 // import Board from './components/board/Board';
-// import BoardForm from './components/board/BoardForm';
-// import BoardList from './components/board/BoardList';
-// import BoardDetail from './components/board/BoardDetail'; // BoardDetail import 추가
+import BoardForm from 'pages/board/BoardFormCoPy';
+import BoardList from 'pages/board/BoardList';
+import BoardDetail from 'pages/board/BoardDetail';
 import Register from 'components/login/Register';
 // import Main from './components/main/main';
 // import SevenHell from './components/hellmap/SevenHell';
@@ -24,7 +24,7 @@ import Header from 'layouts/header';
 import MyPage from 'components/mypage/MyPage';
 
 import { PersistGate } from 'redux-persist/integration/react';
-import AuthCheck from 'components/auth/AuthCheck';
+import AuthCheck from 'utils/AuthCheck';
 
 
 import InitScreen from 'components/login/InitScreen'; //안코코 추가
@@ -48,7 +48,7 @@ function App() {
             <Route path="/NewRegister" element={<NewRegister />} />
 
             <Route path="/Login" element={<Login />} />
-            {/* <Route path="/create" element={<BoardForm />} /> */}
+            <Route path="/create" element={<BoardForm />} />
             {/* <Route path="/main" element={<Main />} /> */}
             {/* <Route path="/YoutubeLive" element={<YoutubeLive />} /> */}
             <Route path="/MyPage" element={<MyPage />} />
@@ -60,8 +60,8 @@ function App() {
               {/* <Route path="/VillainUploader" element={<VillainUploader />} /> */}
 
 
-            {/* <Route path="/BoardList" element={<BoardList />} /> 오타 수정 */}
-            {/* <Route path="/board/:id" element={<BoardDetail />} /> 게시글 상세 페이지 경로 추가 */}
+            <Route path="/BoardList" element={<BoardList />} /> 오타 수정
+            <Route path="/board/:id" element={<BoardDetail />} /> 게시글 상세 페이지 경로 추가
             <Route path="/register" element={<Register />} />    
             {/* <Route path="/test" element={<Test/>} />     */}
             {/* <Route path="/feed" element={<Feed/>} /> */}

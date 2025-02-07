@@ -9,7 +9,7 @@ import {
   FormControlLabel,
   Typography,
 } from "@mui/material";
-import termsData from "./termsData.json";
+import termsData from '../../assets/termsData.json';
 
 const CheckPersonal = ({ open, onClose }) => {
   const [selectedOptions, setSelectedOptions] = useState({

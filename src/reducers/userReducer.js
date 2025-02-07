@@ -1,28 +1,35 @@
 const initialState = {
-    userId: null,
-    isAuthenticated: false, // 로그인 여부 추가
-  };
-  
-  const userReducer = (state = initialState, action) => {
-    switch (action.type) {
-      case 'SET_USER_ID':
-        console.log('액션 payload 아이디:', action.payload);
-        return {
-          ...state,
-          userId: action.payload,
-          isAuthenticated: true, // 로그인 상태 true
-        };
+  userId: null,
+  isAuthenticated: false,
+  nickname: null,
+  profileImage: null,
+};
 
-        case 'LOGOUT':
-          return {
-            ...state,
-            userId: null,
-            isAuthenticated: false, // 로그인 상태 false
-          }
-        
-      default:
-        return state;
-    }
-  };
-  
-  export default userReducer;
+const userReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case 'SET_USER':
+      return {
+        ...state,
+        userId: action.payload.userId,
+        nickname: action.payload.nickname,
+        profileImage: action.payload.profileImage,
+        isAuthenticated: true,
+      };
+    case 'LOGOUT':
+      return initialState;
+    default:
+      return state;
+  }
+};
+
+// 액션 크리에이터 정의
+export const setUser = (user) => ({
+  type: 'SET_USER',
+  payload: user,
+});
+
+export const logout = () => ({
+  type: 'LOGOUT',
+});
+
+export default userReducer;

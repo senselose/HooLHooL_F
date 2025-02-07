@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
-import { setUserId } from '../../actions/userActions';
+import { setUserId } from 'actions/userActions';
+import { setUser } from 'reducers/userReducer'
 
 const AuthCheck = () => {
   const dispatch = useDispatch();
@@ -21,8 +22,15 @@ const AuthCheck = () => {
           },
         });
 
-        if (response.data.userId) {
-          dispatch({ type: "SET_USER_ID", payload: response.data.userId });
+        // 인증 성공 시 사용자 데이터를 Redux에 저장
+        if (response.data) {
+          dispatch(
+            setUser({
+              userId: response.data.userId,
+              nickname: response.data.nickname,
+              profileImage: response.data.profileImage,
+            })
+          );
         }
       } catch (error) {
         console.error("인증 확인 실패:", error.response?.data || error.message);
