@@ -1,0 +1,136 @@
+/* 전체 페이지 스타일 */
+#profileInfo {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 600px; /* 페이지 최대 너비 */
+    padding: 20px;
+    margin: 0 auto; /* 화면 중앙 정렬 */
+}
+
+/* 헤더 스타일 */
+.profileInfo-header {
+    text-align: center;
+    margin-bottom: 10%;
+}
+
+.profileInfo-title {
+    font-size: 1.2rem;  /*  기존 1.0rem → 1.2rem으로 가독성 향상 */
+    font-weight: bold;
+    color: #333;
+}
+
+.profileInfo-subtitle {
+    font-size: 0.95rem; /*  기존 0.9rem → 0.95rem */
+    color: #777;
+}
+
+/* 🔹 프로필 사진 섹션 스타일 */
+.profileInfo-section-avatar {
+  display: flex;
+  justify-content: center; /* 🔥 중앙 정렬 */
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  margin-bottom: 20px; /* 🔥 아래 간격 추가 */
+}
+
+/* 🔹 프로필 이미지 컨테이너 */
+.profileInfo-avatar-wrapper {
+  position: relative;
+  width: 140px; /* ✅ 이미지 크기 줄이기 */
+  height: 140px;
+  border-radius: 50%; /* 🔥 동그랗게 만들기 */
+  overflow: hidden; /* 넘치는 이미지 잘라내기 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #ddd; /* ✅ 테두리 추가 */
+}
+
+/* 🔹 프로필 이미지 */
+.profileInfo-avatar-image {
+  max-width: 100%; /* ✅ 부모 요소 크기에 맞게 조정 */
+  height: auto; /* ✅ 비율 유지하면서 축소 */
+  object-fit: scale-down; /* ✅ 원본 비율 유지하면서 축소 */
+  border-radius: 50%;
+}
+
+/*  섹션 공통 스타일 */
+section {
+    padding: 20px; /*  기존 15px → 20px */
+    border-radius: 10px;
+    margin-bottom: 20px; /* 🔥 섹션 간 간격 추가 */
+}
+
+/*  섹션 제목 스타일 */
+.section-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: grey;
+    padding-left: 2%;
+}
+
+/*  개별 정보 항목 */
+.detail-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #eee;
+    padding: 3% 2%;
+    transition: background 0.2s ease-in-out; /* 🔥 호버 효과 추가 */
+}
+
+/*  왼쪽 레이블 */
+.label {
+    font-weight: bold;
+    font-size: 1rem; /*  기존 0.95rem → 1rem */
+    color: #333;
+    flex: 1;
+    text-align: left;
+    padding-left: 5%;
+}
+
+/*  오른쪽 값 */
+.value {
+    font-size: 1rem; /*  기존 0.95rem → 1rem */
+    color: #666;
+    text-align: right;
+    flex: 2;
+    margin-right: 2%;
+}
+
+/*  수정 버튼 (>) */
+.edit-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 20px;  /*  기존 24px → 28px */
+    height: 25px; /*  기존 24px → 28px */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/*  수정 버튼 이미지 크기 조정 */
+.edit-btn img {
+    width: 15px; /*  기존 18px → 20px */
+    height: 15px;
+    opacity: 0.7;
+    transition: opacity 0.2s ease-in-out;
+}
+
+/* 🔥  수정 버튼 호버 시 투명도 변경 */
+.edit-btn:hover img {
+    opacity: 1;
+}
+
+/* 🔥  호버 효과 (마우스 올리면 배경 색 변경) */
+.detail-item:hover {
+  background: #f9f9f9;
+}
+
+/* 마지막 항목 아래 선 제거 */
+.detail-item:last-child {
+  border-bottom: none;
+}

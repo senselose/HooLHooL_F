@@ -1,0 +1,72 @@
+/* 🔹 전체 페이지 스타일 */
+#editProfile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+  }
+  
+  /* 🔹 입력창 컨테이너 */
+  .edit-profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  /* 🔹 제목 스타일 */
+  .title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: left;
+    width: 100%;
+    margin-bottom: 40px;
+  }
+  
+  /* 🔹 입력 필드 컨테이너 */
+  .input-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  
+  /* 🔹 입력 필드 라벨 */
+  .input-label {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 5px;
+  }
+  
+  /* 🔹 입력 필드 */
+  .input-field {
+    width: 90%;
+    padding: 12px;
+    font-size: 1rem;
+    border: none;
+    border-bottom: 2px solid #007bff;
+    outline: none;
+    background-color: transparent;
+  }
+  
+  /* 🔹 저장 버튼 */
+  .save-button {
+    width: 100%;
+    padding: 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  .save-button:hover {
+    background-color: #333;
+  }
+  

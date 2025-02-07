@@ -20,7 +20,7 @@ import {
 import { Visibility, VisibilityOff } from '@mui/icons-material'; // 추가
 import { styled } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
-import CheckPersonal from './CheckPersonal';
+import CheckPersonal from 'components/auth/CheckPersonal';
 
 //-----------------------------------------------------------------
 const BackgroundBox = styled(Box)({

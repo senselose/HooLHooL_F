@@ -3,11 +3,11 @@ import axios from 'axios';
 import { Box, Container, Typography, TextField, Button, Divider,  Dialog, DialogTitle, DialogContent, DialogActions, } from '@mui/material';
 import { styled } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
-import login from 'styles/login.css'
+import login from 'styles/login/login.css'
 import { useDispatch } from 'react-redux';
 import { setUserId } from '../../actions/userActions';
-import ResetPassword from './ResetPassword';
-import FindId from './FindId';
+import ResetPassword from '../auth/ResetPassword';
+import FindId from '../auth/FindId';
 
 const BackgroundBox = styled(Box)({
   backgroundColor: '#000',

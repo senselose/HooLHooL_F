@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
-import { setUserId } from '../../actions/userActions';
+import { setUserId } from 'actions/userActions.js';
 
 const AuthCheck = () => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  useEffect(() => { 
     const checkAuth = async () => {
       const token = localStorage.getItem("token");
       if (!token) {
@@ -15,7 +15,7 @@ const AuthCheck = () => {
       }
 
       try {
-        const response = await axios.get("http://localhost:8080/api/auth/check", {
+        const response = await axios.get("http://localhost:8080/api/v1/auth/check", {
           headers: {
             Authorization: `Bearer ${token}`, // JWT 토큰을 Authorization 헤더로 전달
           },
