@@ -1,56 +1,62 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../../styles/board/boardList.css";
+import BottomNav from "layouts/BottomNav";
+import IconHeart from "assets/icon/IconHeart.png"; // 좋아요 아이콘
+import IconComment from "assets/icon/IconCommentWhite.png"; // 댓글 아이콘
 
 const BoardList = () => {
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
-  const [currentType, setCurrentType] = useState("POSITIVE"); // 기본 타입: 긍정
-  const [sortOption, setSortOption] = useState("latest"); // 기본 정렬: 최신순
+  const [currentType, setCurrentType] = useState("POSITIVE");
+  const [sortOption, setSortOption] = useState("latest");
   const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true); // 추가 데이터 여부
+  const [hasMore, setHasMore] = useState(true);
+  const buttonRefs = useRef([]);
 
   useEffect(() => {
-    // 필터 또는 정렬이 변경될 때 게시글 초기화
     setPosts([]);
     setPage(0);
     setHasMore(true);
-    fetchPosts(0); // 첫 페이지 로드
+    fetchPosts(0);
   }, [currentType, sortOption]);
 
   const fetchPosts = async (pageNumber) => {
-    if (isLoading) return; // 로딩 중이면 중복 호출 방지
+    if (isLoading) return;
     setIsLoading(true);
 
     try {
-      // filterDate만 보내고, sort는 latest만 유지
-      const filterDate = sortOption === "likesLast7Days" ? 7 : 
-                         sortOption === "likesLast30Days" ? 30 : null;
+      const filterDate =
+        sortOption === "likesLast7Days"
+          ? 7
+          : sortOption === "likesLast30Days"
+          ? 30
+          : null;
 
       const params = {
         type: currentType,
         page: pageNumber,
+        sort: sortOption === "latest" ? "cDate,desc" : null,
+        filterDate: filterDate || undefined,
       };
 
-      // 최신순일 경우에만 정렬을 추가
-      if (sortOption === "latest") {
-        params.sort = "cDate,desc";
-      }
+      const response = await axios.get(
+        "http://localhost:8080/api/v1/boards",
+        { params }
+      );
 
-      if (filterDate) {
-        params.filterDate = filterDate;
-      }
+      // API 응답 데이터를 콘솔에 출력하여 디버깅
+      console.log("API 응답 데이터:", response.data.content);
 
-      const response = await axios.get("http://localhost:8080/api/v1/boards", { params });
-
-      console.log("Sort Option:", sortOption);
       const newPosts = response.data.content || [];
 
-      setPosts((prevPosts) => (pageNumber === 0 ? newPosts : [...prevPosts, ...newPosts])); // 첫 페이지면 덮어쓰기, 아니면 추가
+      setPosts((prevPosts) =>
+        pageNumber === 0 ? newPosts : [...prevPosts, ...newPosts]
+      );
       setPage(pageNumber + 1);
-      setHasMore(newPosts.length > 0); // 더 이상 데이터가 없으면 false로 설정
+      setHasMore(newPosts.length > 0);
     } catch (error) {
       console.error("게시글 가져오기 실패:", error.message);
     } finally {
@@ -58,86 +64,150 @@ const BoardList = () => {
     }
   };
 
-  const handleTypeChange = (type) => {
-    setCurrentType(type); // 필터 변경
+  const formatDate = (dateString) => {
+    const now = new Date();
+    const date = new Date(dateString);
+    const diff = now - date;
+
+    const minutes = Math.floor(diff / (1000 * 60));
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+
+    if (now.toDateString() === date.toDateString()) {
+      if (minutes < 60) return `${minutes}분 전`;
+      return `${hours}시간 전`;
+    } else {
+      return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(
+        2,
+        "0"
+      )}.${String(date.getDate()).padStart(2, "0")}`;
+    }
   };
 
-  const handleSortChange = (sort) => {
-    setSortOption(sort); // 정렬 변경
+  const handleSortChange = (sort, index) => {
+    setSortOption(sort);
+    const activeButton = buttonRefs.current[index];
+    const indicator = document.querySelector(".active-indicator");
+
+    if (activeButton && indicator) {
+      const parentRect = activeButton.parentElement.getBoundingClientRect();
+      const buttonRect = activeButton.getBoundingClientRect();
+      const offsetLeft = buttonRect.left - parentRect.left;
+
+      indicator.style.transform = `translateX(${offsetLeft}px)`;
+      indicator.style.width = `${buttonRect.width}px`;
+    }
   };
 
-  const handleWriteButtonClick = () => {
-    navigate("/create"); // 글쓰기 페이지로 이동
-  };
+  useEffect(() => {
+    const activeButton = buttonRefs.current[0];
+    const indicator = document.querySelector(".active-indicator");
+
+    if (activeButton && indicator) {
+      const parentRect = activeButton.parentElement.getBoundingClientRect();
+      const buttonRect = activeButton.getBoundingClientRect();
+      const offsetLeft = buttonRect.left - parentRect.left;
+
+      indicator.style.transform = `translateX(${offsetLeft}px)`;
+      indicator.style.width = `${buttonRect.width}px`;
+    }
+  }, []);
 
   return (
-    <div className="board-list-container">
-      {/* 상단 필터 */}
-      <div className="board-list-filters">
-        <div className="board-type-buttons">
+    <div className={`board-list-container ${currentType.toLowerCase()}`}>
+      <h1 className="logo-text-wrapper">
+        <span className="logo-text static">HooL</span>
+        <span className={`logo-text dynamic ${currentType.toLowerCase()}`}>
+          HooL
+        </span>
+      </h1>
+
+      {/* 정렬 옵션 버튼 */}
+      <div className="board-sort-options">
+        {["latest", "likesLast7Days", "likesLast30Days"].map((sort, index) => (
           <button
-            className={`type-button ${currentType === "POSITIVE" ? "active" : ""}`}
-            onClick={() => handleTypeChange("POSITIVE")}
+            key={sort}
+            className={`sort-button ${sortOption === sort ? "active" : ""}`}
+            onClick={() => handleSortChange(sort, index)}
+            ref={(el) => (buttonRefs.current[index] = el)}
           >
-            긍정
+            {sort === "latest"
+              ? "오늘의 훌훌"
+              : sort === "likesLast7Days"
+              ? "주간 베스트"
+              : "월간 베스트"}
           </button>
-          <button
-            className={`type-button ${currentType === "NEGATIVE" ? "active" : ""}`}
-            onClick={() => handleTypeChange("NEGATIVE")}
-          >
-            부정
-          </button>
-        </div>
-        <div className="board-sort-options">
-          <button
-            className={`sort-button ${sortOption === "latest" ? "active" : ""}`}
-            onClick={() => handleSortChange("latest")}
-          >
-            최신순
-          </button>
-          <button
-            className={`sort-button ${sortOption === "likesLast7Days" ? "active" : ""}`}
-            onClick={() => handleSortChange("likesLast7Days")}
-          >
-            1주일 좋아요순
-          </button>
-          <button
-            className={`sort-button ${sortOption === "likesLast30Days" ? "active" : ""}`}
-            onClick={() => handleSortChange("likesLast30Days")}
-          >
-            1달 좋아요순
-          </button>
+        ))}
+        <div className="sort-button-wrapper">
+          <div className="active-indicator"></div>
         </div>
       </div>
 
-      {/* 게시글 목록 */}
       <div className="board-posts">
         {posts.map((post) => (
-          <div key={post.boardId} className="board-post" onClick={() => navigate(`/board/${post.boardId}`)}>
-            <div className="post-type-icon">{currentType === "POSITIVE" ? "😊" : "😡"}</div>
-            <div className="post-content">
-              <h4>{post.title}</h4>
-              <p>{post.content}</p>
-              <span>{post.likes || 0} 좋아요</span>
+          <div
+            key={post.boardId}
+            className="board-post"
+            onClick={() => navigate(`/board/${post.boardId}`)}
+          >
+            {/* 왼쪽 컨텐츠 */}
+            <div className="post-left">
+              <div className="post-tags">
+              {post.hashTag &&
+                post.hashTag.split(" ").map((tag, index) => (
+                    <span key={index} className="post-tag">
+                        <span
+                            className="hashtag-symbol"
+                            style={{
+                                color:
+                                    currentType === "POSITIVE"
+                                        ? "#1133F6"
+                                        : "#FD1919",
+                            }}
+                        >
+                            #&nbsp;
+                        </span>
+                        {tag.substring(1)}
+                    </span>
+              ))}
+              </div>
+              <h4 className="post-title">{post.title}</h4>
+              <div className="post-meta">
+                <span>{formatDate(post.cDate)}</span>
+                <span> | 조회 {post.views || 0}</span>
+              </div>
+            </div>
+
+            {/* 오른쪽 컨텐츠 */}
+            <div className="post-right">
+              {post.images && post.images.length > 0 ? (
+                      <img
+                          src={`http://localhost:8080/uploads/${post.images[0].fileName}`}
+                          alt="썸네일"
+                          className="post-thumbnail"
+                      />
+                  ) : (
+                      <div className="post-thumbnail transparent"></div>
+                  )}
+              <div className="post-stats">
+                <span className="post-likes">
+                  <img src={IconHeart} alt="좋아요" className="icon" />
+                  {post.likes || 0}
+                </span>
+                <span className="post-comments">
+                  <img src={IconComment} alt="댓글" className="icon" />
+                  {post.comments || 0}
+                </span>
+              </div>
             </div>
           </div>
         ))}
       </div>
 
-      {/* 더 보기 버튼 */}
-      {hasMore && !isLoading && (
-        <button className="load-more-button" onClick={() => fetchPosts(page)}>
-          더 보기
-        </button>
-      )}
-
-      {/* 글쓰기 버튼 */}
-      <button className="write-button" onClick={handleWriteButtonClick}>
-        글쓰기
-      </button>
+      <BottomNav onLogoClick={setCurrentType} />
     </div>
   );
 };
 
 export default BoardList;
+
 
