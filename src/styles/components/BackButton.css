@@ -1,8 +1,8 @@
 .back-button {
   position: absolute; /* Page 내부에서 고정 */
-  top: 5%; /* 상단에서 15px */
-  left: 5%; /* 왼쪽에서 15px */
+  left: 0vh; /* 왼쪽에서 15px */
   background-color: transparent;
+  justify-items: center;
   border: none;
   cursor: pointer;
   z-index: 10; /* 로그인 폼 위에 배치 */

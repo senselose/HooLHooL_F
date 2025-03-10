@@ -1,16 +1,8 @@
 
 /*마이페이지*/
-#mypage {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    /* align-items: center; */
-    max-width: 600px; /* 페이지 최대 너비 */
-}
-
 /* Header */
 .mypage-header {
-    margin-top: 10%;
+    margin-top: 0%;
     text-align: left;
     align-items: left;
 }
@@ -18,13 +10,14 @@
 .mypage-title {
     font-size: 2rem;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: 2%;
     text-align: left;
 
 }
 
 .mypage-subtitle {
     font-size: 1rem;
+    margin-top : 2%;
     color: #555;
 }
 
@@ -35,6 +28,7 @@
   display: flex;
   justify-content: space-between;
   gap: 4%; /* 카드 간 간격 */
+  padding: 0%;
 }
 
 /* 카드 아이템 */
@@ -76,12 +70,11 @@
 /*섹션 : Profile Section */
 .profile-section {
     display: flex;
+    flex: 1;
     flex-direction: column; /* 세로로 쌓기 */
-    width: 90%; /* 전체 너비 */
-    margin-top: 0px; /* 기존 여백 제거 */
-    padding-top: 0px; /* 내부 여백 제거 */
-    max-width: 500px; /* 최대 너비 제한 */
-    padding: 5%; /* 내부 여백 */
+    padding: 5%;
+    margin-top: 10px;
+    max-width: 480px; /* 최대 너비 제한 */
     border-radius: 20px; /* 모서리 둥글게 */
     background-color: white; /* 배경색 */
     /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); */
@@ -93,8 +86,6 @@
     flex-direction: row; /* 가로 정렬 */
     align-items: center; /* 세로 중앙 정렬 */
     gap: 15px; /* 이미지와 텍스트 간격 */
-    height : 120px;
-    margin-bottom: 15%;
   }
   
   /* 프로필 이미지 */
@@ -135,7 +126,7 @@
     display: flex;
     flex-direction: column; /* 세로 정렬 */
     justify-content: center;
-    margin-top: 5%; /*카드 섹션과의 세로 여백값*/
+    margin: 5%; /*카드 섹션과의 세로 여백값*/
     gap: 5px; /* 텍스트 간 간격 */
   }
   
@@ -157,15 +148,15 @@
 .profile-bottom-row {
     display: flex;
     flex-direction: column; /* 세로 정렬 */
-    gap: 1px; /* 요소 간격 */
     width: 100%; /* 전체 너비 */
+    padding : 4% 4% 0% 4%;
   }
   
   .profile-bottom-row  p {
     font-size: 0.9em;
     align-items: flex-start; /* 왼쪽 정렬 */
-    margin: 3%;
-    
+    margin-top: 2%;
+    margin-bottom: 2%;    
 
   }
   .profile-info {
@@ -175,25 +166,27 @@
     word-wrap: break-word; /* 긴 텍스트 줄바꿈 */
   }
   
-/* 수정 버튼 스타일 */
-.edit-button {
-  background: none;
-  border: none;
-  color: #007bff;
-  font-size: 0.9rem;
-  text-decoration: underline;
-  margin-left: 70%;
+  /* 수정 버튼 스타일 */
+  .edit-button {
+    background: black;
+    border: none;
+    color: white;
 
-}
+    border-radius: 30px;
+    padding : 2%;
+    width: 15%;
+    font-size: 0.8rem;
+    margin-left: auto;
+  }
 
 
 /* 자기소개 수정 입력 필드 */
 .edit-info-input {
-  width: 85%;
-  padding: 10px;
-  font-size: 14px;
+  width: 100%;
+  padding: 4%;
+  font-size: 0.9rem;
   border: 1px solid #ccc;
-  border-radius: 20px;
+  border-radius: 10px;
   outline: none;
 }
 
@@ -203,55 +196,56 @@
   justify-content: flex-end; /* 오른쪽 정렬 */
   gap: 10px; /* 버튼 간 간격 */
   margin-top: 3%; /* 위쪽 여백 */
-  margin-right: 8%; /* 오른쪽 여백 */
 }
 
 /* 저장 버튼 */
 .save-button {
-  padding: 8px 12px;
+  border-radius: 30px;
+  padding : 2%;
+  width: 15%;
   font-size: 0.8rem;
+
   border: none;
-  border-radius: 20px;
   cursor: pointer;
   background-color: #007bff; /* 파란색 배경 */
   color: white;
 }
 
 .cancel-button {
-  padding: 8px 12px;
+  border-radius: 30px;
+  padding : 2%;
+  width: 15%;
   font-size: 0.8rem;
+
   border: none;
-  border-radius: 20px;
   cursor: pointer;
   background-color: #ccc;
   color: #333;
 }
 
 
-
-
-
-
 /* Activity Section */
 .activity-section {
-    width: 90%;
-    max-width: 400px;
+    width: 100%;
+    margin-top: 10px;
+    max-width: 480px;
     background-color: white;
     border-radius: 20px;
     padding: 5%;
 }
 
 .activity-title {
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: 4%;
 }
 
 .activity-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 0;
+    padding: 3%;
+    font-size: 0.95rem;
     border-bottom: 1px solid #eee;
     cursor: pointer;
 }
@@ -265,6 +259,47 @@
 }
 
 .activity-arrow {
-    font-size: 16px;
+    font-size: 24px;
     color: #555;
+}
+
+
+
+/*쿠폰함*/
+/* Activity Section */
+.mypage-gifticon-section {
+  width: 100%;
+  max-width: 480px;
+  background-color: white;
+  border-radius: 20px;
+  padding: 5%;
+}
+
+.mypage-gifticon-title {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 4%;
+}
+
+.mypage-gifticon-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3%;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+}
+
+.mypage-gifticon-item:last-child {
+  border-bottom: none;
+}
+
+.mypage-gifticon-item:hover {
+  background-color: #f5f5f5;
+}
+
+.mypage-gifticon-arrow {
+  font-size: 24px;
+  color: #555;
 }

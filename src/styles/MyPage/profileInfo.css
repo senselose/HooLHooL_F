@@ -1,17 +1,24 @@
 /* 전체 페이지 스타일 */
 #profileInfo {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 600px; /* 페이지 최대 너비 */
-    padding: 20px;
-    margin: 0 auto; /* 화면 중앙 정렬 */
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  margin: 0 auto;
+  height: 100%;  /* 🔥 이거 수정 */
+  max-height: 100%;
+  overflow-y: auto; /* 🔥 스크롤 가능하게 */
 }
+
 
 /* 헤더 스타일 */
 .profileInfo-header {
-    text-align: center;
-    margin-bottom: 10%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
 .profileInfo-title {
@@ -23,6 +30,7 @@
 .profileInfo-subtitle {
     font-size: 0.95rem; /*  기존 0.9rem → 0.95rem */
     color: #777;
+    text-align: center;
 }
 
 /* 🔹 프로필 사진 섹션 스타일 */
@@ -58,9 +66,9 @@
 
 /*  섹션 공통 스타일 */
 section {
-    padding: 20px; /*  기존 15px → 20px */
     border-radius: 10px;
     margin-bottom: 20px; /* 🔥 섹션 간 간격 추가 */
+
 }
 
 /*  섹션 제목 스타일 */
@@ -71,45 +79,64 @@ section {
     padding-left: 2%;
 }
 
-/*  개별 정보 항목 */
+/* 개별 정보 항목 */
 .detail-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid #eee;
-    padding: 3% 2%;
-    transition: background 0.2s ease-in-out; /* 🔥 호버 효과 추가 */
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 🔥 요소들을 양쪽 끝으로 배치 */
+  border-bottom: 1px solid #eee;
+  padding: 3% 2%;
+  transition: background 0.2s ease-in-out;
+  width: 100%; /* 🔥 전체 너비 설정 */
 }
 
+.disabled-field {
+  background-color: lightgray; /* 🔹 연한 회색 배경 */
+  color: gray; /* 🔹 글자색도 흐리게 */
+  cursor: not-allowed; /* 🔹 마우스 커서 금지 */
+  opacity: 0.6; /* 🔹 흐린 효과 */
+  pointer-events: none; /* 🔹 클릭 & 포커스 비활성화 */
+  border-radius: 8px; /* 🔹 부드러운 테두리 */
+  padding: 10px; /* 🔹 적당한 여백 */
+}
 /*  왼쪽 레이블 */
 .label {
-    font-weight: bold;
-    font-size: 1rem; /*  기존 0.95rem → 1rem */
-    color: #333;
-    flex: 1;
-    text-align: left;
-    padding-left: 5%;
+  font-weight: bold;
+  font-size: 1rem;
+  color: #333;
+  flex: 1; /* 🔥 왼쪽 요소가 고정 크기보다 유연하게 늘어나도록 */
+  text-align: left;
+  padding-left: 5%;
 }
 
-/*  오른쪽 값 */
+/* 오른쪽 값 */
 .value {
-    font-size: 1rem; /*  기존 0.95rem → 1rem */
-    color: #666;
-    text-align: right;
-    flex: 2;
-    margin-right: 2%;
+  font-size: 1rem;
+  color: #666;
+  flex: 2; /* 🔥 오른쪽 요소도 유연하게 확장 */
+  text-align: right;
+  padding-right: 5%;
 }
+
+
+
+.hidden-btn {
+  visibility: hidden; /* ✅ 버튼을 숨기되, 공간은 유지 */
+}
+
 
 /*  수정 버튼 (>) */
+/* 수정 버튼 */
 .edit-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    width: 20px;  /*  기존 24px → 28px */
-    height: 25px; /*  기존 24px → 28px */
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  flex-shrink: 0; /* 🔥 버튼 크기 유지 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 25px; /* 🔥 버튼 크기 조정 */
+  height: 25px;
 }
 
 /*  수정 버튼 이미지 크기 조정 */
@@ -125,6 +152,13 @@ section {
     opacity: 1;
 }
 
+.edit-btn-hidden {
+    visibility: hidden; /* 버튼이 없어도 공간을 유지 */
+    width: 5%; /*  기존 18px → 20px */
+    height: 15px;
+}
+
+
 /* 🔥  호버 효과 (마우스 올리면 배경 색 변경) */
 .detail-item:hover {
   background: #f9f9f9;
@@ -133,4 +167,97 @@ section {
 /* 마지막 항목 아래 선 제거 */
 .detail-item:last-child {
   border-bottom: none;
+}
+
+
+/* 토글 스위치 스타일 */
+/* ✅ 토글 스위치 스타일 */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 50px; /* 토글 스위치 너비 */
+  height: 25px; /* 토글 스위치 높이 */
+}
+
+/* ✅ 숨겨진 체크박스 (기본 스타일 제거) */
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* ✅ 토글 슬라이더 스타일 */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc; /* 기본 비활성 색상 */
+  transition: 0.4s;
+  border-radius: 25px;
+}
+
+/* ✅ 슬라이더 내부 동그라미 (토글 핸들) */
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 17px;
+  width: 17px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+/* ✅ 토글이 켜졌을 때 (checked 상태) */
+.toggle-switch input:checked + .slider {
+  background-color: #007bff; /* ✅ 활성화(ON) 시 파란색 */
+}
+
+/* ✅ 토글이 켜졌을 때 핸들 이동 */
+.toggle-switch input:checked + .slider:before {
+  transform: translateX(24px); /* ✅ 오른쪽으로 이동 */
+}
+
+
+  /* ✅ 모달 오버레이 스타일 (배경을 반투명하게) */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* 배경을 반투명하게 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* 다른 요소 위에 배치 */
+}
+
+/* ✅ 모달 창 스타일 */
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  width: 300px;
+}
+
+/* ✅ 모달 버튼 스타일 */
+.modal-content button {
+  margin-top: 10px;
+  padding: 8px 16px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-content button:hover {
+  background-color: #0056b3;
 }

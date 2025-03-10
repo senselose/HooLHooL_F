@@ -1,9 +1,10 @@
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import Page from "components/styles/Page";
 import Background from "context/Background.jsx";
+import BottomNav from "layouts/BottomNav";
 import "styles/MyPage/mypage.css";
 
 /* 이미지 import */
@@ -23,7 +24,7 @@ const cardData = [
   },
   {
     image: pig,
-    title: "대시보드\n훌훌",
+    title: "기프티콘\n보관함",
 
   },
 ];
@@ -46,7 +47,7 @@ const MyPage = () => {
   const navigate = useNavigate();
   const userId = useSelector((state) => state.auth?.userId || null); // Redux에서 userId 가져오기
   const dispatch = useDispatch(); // Redux의 dispatch 함수 가져오기 
-
+  
    useEffect(() => {
       const fetchUserData = async () => {
         try {
@@ -115,6 +116,18 @@ const MyPage = () => {
       setPasswordDialogOpen(true);
     };
   
+
+    const prevUserData = useRef(null); // 🔥 이전 상태 저장
+    useEffect(() => {
+      // ✅ 이전 상태와 비교하여 변경이 있을 때만 실행
+      if (userData && JSON.stringify(prevUserData.current) !== JSON.stringify(userData)) {
+        console.log("현재 userData 상태:", userData);
+        prevUserData.current = userData; // 🔥 상태 변경 감지 후 업데이트
+      }
+    }, [userData]); // userData가 변경될 때만 실행
+
+
+
     // 비밀번호 확인
     const handlePasswordCheck = async () => {
       try {
@@ -146,14 +159,18 @@ const MyPage = () => {
   
     const handleCardClick = (title) => {
       if (title === "개인정보\n수정") {
-        navigate("/ProfileInfo", { replace: false }); // 히스토리 추가됨 → 뒤로가기 가능
+        navigate("/check-password"); //  비밀번호 확인 페이지로 이동
+      }
+      if (title === "대시보드\n훌훌") {
+        navigate("/pointLog"); //  비밀번호 확인 페이지로 이동
       }
     };
+    
 
 
-    const userDataRedux = useSelector((state) => state.auth); 
+    // const userDataRedux = useSelector((state) => state.auth); 
     // console.log("Redux에 저장된 사용자 정보:", userDataRedux);
-    console.log("현재 userData 상태:", userData);
+    // console.log("현재 userData 상태:", userData);
 
     // 수정 모드 활성화 (자기소개)
     const handleEditInfo = () => {
@@ -307,12 +324,14 @@ const MyPage = () => {
       return <div>로딩 중...</div>;
     }
   
-
+    const handleNavigate = () => {
+      navigate("/ActiveLog");
+    };
 
   return (
-    <Background type="mypage">
-      <Page scrollable={false} className="mypage">
-        {/* Header */}
+    <Background type="gray">
+      <Page scrollable={true} className="myPage">
+      {/* Header */}
         <header className="mypage-header">
           <h1 className="mypage-title">MyPage</h1>
           <p className="mypage-subtitle">관심과 공감이 가치가 되는 곳</p>
@@ -328,7 +347,7 @@ const MyPage = () => {
             >
               {card.title === "포인트" && <p className="point">{userData.point} </p>}
               {card.title === "개인정보\n수정" && <p className="content"></p>}
-              {card.title === "대시보드\n훌훌" && <p className="content"></p>}
+              {card.title === "기프티콘\n보관함" && <p className="content"></p>}
 
               {/* <p className="point">{card.description}</p> */}
               <h3>{card.title}</h3>
@@ -363,10 +382,9 @@ const MyPage = () => {
           </div>
           <div className="profile-bottom-row">
             <p>자기소개글</p>
-
             {isEditingInfo ? (
               <>
-                <input
+                <textarea
                   type="text"
                   value={editedInfo}
                   onChange={handleInfoChange}
@@ -374,8 +392,8 @@ const MyPage = () => {
                   placeholder="자기소개를 입력하세요"
                 />
                 <div className="edit-save-buttons">
-                  <button className="save-button" onClick={handleSaveInfo}>저장</button>
                   <button className="cancel-button" onClick={handleCancelInfo}>취소</button>
+                  <button className="save-button" onClick={handleSaveInfo}>저장</button>
                 </div>
               </>
             ) : (
@@ -391,31 +409,40 @@ const MyPage = () => {
         </section>
 
         {/* 활동 내역 섹션 */}
-        <section className="activity-section">
-          <h2 className="activity-title">활동 내역</h2>
-          <div
-            className="activity-item"
-            onClick={() => console.log("Navigate to my posts")}
-          >
-            <span>✍️ 내가 쓴 글</span>
-            <span className="activity-arrow">›</span>
-          </div>
-          <div
-            className="activity-item"
-            onClick={() => console.log("Navigate to my comments")}
-          >
-            <span>💬 내가 쓴 댓글</span>
-            <span className="activity-arrow">›</span>
-          </div>
-          <div
-            className="activity-item"
-            onClick={() => console.log("Navigate to scraped comments")}
-          >
-            <span>📌 스크랩한 댓글</span>
-            <span className="activity-arrow">›</span>
-          </div>
-        </section>
-      </Page>
+          <section className="activity-section">
+            <h2 className="activity-title">활동 내역</h2>
+            <div className="activity-item" onClick={() => handleNavigate("내가 쓴 글")}>
+              <span>✍️ 내가 쓴 글</span>
+              <span className="activity-arrow">›</span>
+            </div>
+            <div className="activity-item" onClick={() => handleNavigate("내가 쓴 댓글")}>
+              <span>💬 내가 쓴 댓글</span>
+              <span className="activity-arrow">›</span>
+            </div>
+            <div className="activity-item" onClick={() => handleNavigate("스크랩 한 글")}>
+              <span>📌 스크랩한 댓글</span>
+              <span className="activity-arrow">›</span>
+            </div>
+          </section>
+
+            {/* 쿠폰함 */}
+          <section className="mypage-gifticon-section">
+            <h2 className="mypage-gifticon-title">쿠폰 교환 내역</h2>
+            <div className="mypage-gifticon-item" onClick={() => handleNavigate("내가 쓴 글")}>
+              <span>✍️ 내가 쓴 글</span>
+              <span className="mypage-gifticon-arrow">›</span>
+            </div>
+            <div className="mypage-gifticon-item" onClick={() => handleNavigate("내가 쓴 댓글")}>
+              <span>💬 내가 쓴 댓글</span>
+              <span className="mypage-gifticon-arrow">›</span>
+            </div>
+            <div className="mypage-gifticon-item" onClick={() => handleNavigate("스크랩 한 글")}>
+              <span>📌 스크랩한 댓글</span>
+              <span className="activity-arrow">›</span>
+            </div>
+          </section>
+        </Page>
+     <BottomNav/>
     </Background>
   );
 };

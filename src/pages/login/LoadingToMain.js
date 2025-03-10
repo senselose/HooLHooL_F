@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import "styles/login/loadingScreen.css"; // 로딩 화면 전용 스타일
-
-import whiteLogo from "assets/image/white_hand_logo.png";
+import Page from "components/styles/Page";
+import Background from "context/Background";
+import whiteLogo from "assets/logo/white_hand_logo.png";
 import { useNavigate } from "react-router-dom";
 
 const LoadingToMain = () => {
