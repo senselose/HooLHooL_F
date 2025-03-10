@@ -1,157 +1,82 @@
-/* 전역 스타일 */
-:root {
-  /* --primary-color: #ff7a59; */
-  --text-color: #333;
-  --link-color: #007bff;
-  --font-family: "Arial", sans-serif;
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-  font-family: var(--font-family);
-  background-color: #f8f8f8;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-
+/* ✅ 전체 페이지 스타일 */
+.initScreen-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 900px;
+  box-sizing: border-box;
   overflow: hidden;
+  gap: 5vh; /* 🔥 요소 사이 간격을 비율 유지하면서 조정 */
+  flex: 1; /* 💡 가변적인 높이 적용 */
 
-  
 }
 
 
-/* ====== 로딩화면 레이드 애니메이션 추가 ======== */
-/* styles/loading.css */
-.fade-in {
-  animation: fadeIn 0.5s ease-in-out;
+/* ✅ 헤더 */
+.initScreen-header{
+  flex: 1; /* 💡 가변적인 높이 적용 */
+  font-size: 4vw;
+  margin-top: 5vh;
+
 }
 
-.fade-out {
-  animation: fadeOut 0.5s ease-in-out;
+/* ✅ 주요 컨텐츠 */
+.main-content {
+  margin-top: 1vh;
+  flex: 1; /* 💡 가변적인 높이 적용 */
+  font-size: 3.5vw;
+
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+/* ✅ 이미지 로고 */
+.image-logo {
+  flex: 1; /* 💡 이미지 크기를 유동적으로 조절 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
+/* ✅ 이미지 스타일 */
+.image-logo img {
+  max-width: 250px;
+  object-fit: contain; /* 💡 이미지 비율 유지 */
 }
 
-
-
-/* ====== 로딩 화면 스타일 ====== */
-.loading {
-  width: 90%;
-  max-width: 375px;
-  height: 100vh;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  padding: 5%;
-  text-align: center;
-  /* background-image: url("assets/image/CoinFlip.gif"); */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  /* background-attachment: fixed; */
-}
-
-.loading .header h1 {
-  font-size: 7vw;
-  color: #fff;
-  margin: 20% 5% 30% 5%;
-  text-align: left;
-}
-
-.loading .image-logo img {
-  max-width: 80vw;
-  height: auto;
-  margin-top: 10vh;
-}
-
-
-/* ====== 메인 화면 스타일 ====== */
-.container {
-  width: 90%;
-  max-width: 375px;
-  height: 100vh;
-  background: white;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  padding: 5%;
-  text-align: center;
-  background-image: url("assets/image/blur_ver9.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
-  /* background-attachment: fixed; */
-}
-
-.container .header h1 {
-  font-size: 6.5vw;
-  color: var(--text-color);
-  margin: 20% 5% 5% 5%;
-  text-align: left;
-}
-
-.container .main-content h6 {
-  font-size: 5.5vw;
-  color: var(--text-color);
-  text-align: left;
-  margin: 5% 5% 5% 5%;
-}
-
-.container .image-logo img {
-  max-width: 70vw;
-  height: auto;
-  margin: 5%;
-}
-
-
-.container .start-button {
-  background-color: var(--primary-color);
+/* ✅ 버튼 */
+.start-button {
+  background-color: #F26363;
   color: white;
   border: none;
-  padding: 3% 5%;
+  padding: 2.5vw 3vw;
   font-size: 4.5vw;
   border-radius: 20px;
   width: 80vw;
   cursor: pointer;
-
+  margin-top: 20px; /* 💡 버튼 간격 조정 */
 }
 
-.container .start-button a {
-  color: white;
-  text-decoration: none;
+/* ✅ 푸터 스타일 */
+.footer_InitScreen {
+  text-align: center;
+  font-size: 0.8rem;
+  color: black;
+  margin-bottom: 2vh;
 }
 
-.container .start-button:hover {
-  background-color: #e56745;
+
+
+/*미디어 쿼리*/
+@media (max-width: 768px) {
+  .initScreen-container {
+    padding: 8%; /* 작은 화면에서는 여백 증가 */
+    gap: 3vh; /* 간격 조정 */
+  }
 }
 
-.container .login-link {
-  font-size: 4vw;
-  color: var(--text-color);
-}
-
-/*로그인 링크 색깔*/
-.container .login-link a {
-  color: var(--link-color);
-  text-decoration: none;
-}
-
-.container .login-link a:hover {
-  text-decoration: underline;
+@media (max-width: 480px) {
+  .initScreen-container {
+    padding: 5%;
+    min-height: 50vh; /* 작은 화면에서 조정 */
+    gap: 0vh;
+  }
 }

@@ -21,3 +21,24 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* ✅ 기본 마진/패딩 제거 */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden; /* 🔥 가로 스크롤 방지 */
+}
+
+/* ✅ `#root`도 전체를 차지하도록 설정 */
+#root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+/* 모든 요소의 크기를 padding 포함하도록 설정 */
+* {
+  box-sizing: border-box;
+}

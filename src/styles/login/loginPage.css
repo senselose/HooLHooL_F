@@ -1,108 +1,152 @@
-/* 로그인 컨테이너 스타일 */
-.login-container {
-  width: 95%;
-  max-width: 375px;
-  text-align: center;
-  border-radius: 12px; /* 모서리 둥글게 */
-  margin: 5%; /* 백버튼 아래로 여백 */
+/* 🌟 로그인 페이지가 부드럽게 나타나는 효과 */
+#login-page {
+  opacity: 0;
+  animation: fadeIn 0.5s ease-in-out forwards;
 }
-  
-  .login-container .login-header h1 {
-    width: 80%;
-    padding-top: 30%;
-    font-size: 6vw;
-    color: var(--text-color);
-    text-align: left;
-    margin: 5% 10% 2% 10%;
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.fade-out {
+  animation: fadeOut 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
-  
-  .login-container .login-header p {
-    font-size: 5.5vw;
-    color: var(--text-color);
-    text-align: left;
-    margin: 5% 10% 10% 10%;
+  to {
+    opacity: 1;
   }
-  
-  
-  /* 로고 스타일 */
-  .login-logo img {
-    width: 160px;
-    height: auto;
-    margin: 20px 0;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
   }
-  
-  /* Form 스타일 */
+  to {
+    opacity: 0;
+  }
+}
+
+/* 🌟 로그인 컨테이너 */
+.login-container {
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  border-radius: 12px;
+  margin: 10vh auto; /* 화면 높이에 비례 */
+}
+
+/* 🌟 로그인 헤더 (타이틀 & 설명) */
+.login-container .login-header h1 {
+  font-size: 6vw; /* 화면 너비에 비례 */
+  color: var(--text-color);
+  text-align: left;
+}
+
+.login-container .login-header p {
+  font-size: 5vw;
+  color: var(--text-color);
+  text-align: left;
+  margin-top: 2%;
+  margin-bottom: 10%;
+}
+
+/* 🌟 로고 스타일 */
+.login-logo img {
+  width: 40vw; /* 화면 너비에 비례 */
+  max-width: 160px;
+  height: auto;
+  margin: 20px 0;
+}
+
+/* 🌟 로그인 폼 스타일 */
 .login-form {
   display: flex;
-  flex-direction: column; /* 세로 정렬 */
-  align-items: center; /* 자식 요소를 가로 중앙 정렬 */
-  gap: 15px; /* 요소 간격 */
-  width: 80%; /* 부모 너비를 기준으로 */
-  max-width: 300px; /* 최대 너비 제한 */
-  margin: 0 auto; /* 폼 자체 가로 중앙 정렬 */
+  flex-direction: column;
+  align-items: center;
+  gap: 2vh; /* 화면 높이에 비례 */
+  width: 90%;
+  max-width: 350px;
+  margin: 0 auto;
+  flex-grow: 1; /* ✅ 가변 크기 조절 */
+
 }
-  
 
-  .input-group {
-    display: flex;
-    flex-direction: column;
-    width: 100%; /* 부모 너비 기준으로 조정 */
-    align-items: left; /* input과 label 중앙 정렬 */
-    text-align: left; /* 텍스트 중앙 정렬 */
-  }
+/* 🌟 입력 필드 스타일 */
+.input-group {
+  width: 100%;
+  max-width: 350px;
+  text-align: left;
+}
 
-  .input-group label {
-    font-size: 0.9rem;
-    color: #555;
-    margin-bottom: 5px;
-    text-align: left; /* 라벨 텍스트 중앙 정렬 */
-  }
+.input-group label {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 1vh;
+  display: block;
+}
 
-  .input-group input {
-    padding: 4%;
-    border: none;
-    font-size: 0.9rem;
-    border-radius: 30px;
-    width: 90%; /* 입력 필드 너비가 부모 너비를 따름 */
-    max-width: 400px; /* 최대 너비 제한 */
-    text-align: left; /* 입력 텍스트는 왼쪽 정렬 */
-    margin-bottom: 2%;
-  }
+.input-group input {
+  width: 100%;
+  text-indent: 4%;
+  padding: 1.5vh; /* 화면 높이에 비례 */
+  border-radius: 2rem;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
 
-  .input-group input:focus {
-    border-color: #ff6ea1;
-  }
-    
-  /* 로그인 버튼 스타일 */
-  .login-button {
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    width: 100%;
-    border-radius: 30px;
-    padding: 10px;
-    margin-top: 5%;
-    font-size: 0.8rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .login-button:hover {
-    background-color: #e0558b;
-  }
-  
-  /* Footer 스타일 */
-  .login-footer {
-    margin-top: 20px;
-  }
-  
-  .login-footer a {
-    font-size: 0.9rem;
-    color: #555;
-    text-decoration: none;
-  }
-  
-  .login-footer a:hover {
-    text-decoration: underline;
-  }
-  
+.input-group input:focus {
+  border-color: #ff6ea1;
+  outline: none;
+}
+
+/* 🌟 로그인 버튼 */
+.login-button {
+  width: 100%;
+  max-width: 350px;
+  padding: 1.5vh; /* 화면 높이에 비례 */
+  background-color: #fcaac6;
+  color: black;
+  border: none;
+  border-radius: 3rem;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 2vh;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #f7a2ba;
+}
+
+
+.loginPage-buttons{
+  width: 90%;
+}
+/* 🌟 아이디/비밀번호 찾기 */
+.login-find {
+  width: 100%;
+  text-align: center; /* 중앙 정렬 */
+}
+
+.login-find a {
+  font-size: 0.9rem;
+  color: blue;
+  margin-top: 7px;
+  margin-bottom: 7vh;
+  text-decoration: underline;
+  text-align: right;
+  display: block;
+}
+
+/* 🌟 푸터 */
+.footer_InitScreen p {
+  text-align: center;
+  font-size: 0.8rem;
+  color: black;
+}
