@@ -53,6 +53,8 @@ function App() {
             <Route path="/create" element={<BoardForm />} />
             {/* <Route path="/main" element={<Main />} /> */}
             {/* <Route path="/YoutubeLive" element={<YoutubeLive />} /> */}
+            <Route path="/menu" element={<Menu />} /> {/* 상세 페이지 추가 */}
+
             <Route path="/MyPage" element={<MyPage />} />
             <Route path="/LoginPage" element={<LoginPage />} />
             <Route path="/LoadingScreen" element={<LoadingScreen />} />
@@ -70,10 +72,13 @@ function App() {
 
 
             <Route path="/PointMarket" element={<PointMarket />} />
-            <Route path="/CheckPassword" element={<CheckPassword />} />
+            <Route path="/check-password" element={<CheckPassword />} />
+            <Route path="/edit-profile/:field" element={<EditProfile />} />
             <Route path="/ActiveLog" element={<ActiveLog />} />
             <Route path="/PointLog" element={<PointLog />} />
             <Route path="/PointMarket" element={<PointMarket />} />
+            <Route path="/pointMarket/product/:id" element={<ProductDetail />} /> {/* 상세 페이지 추가 */}
+
 
           </Routes>
           {/* 전역 FloatingButton */}
