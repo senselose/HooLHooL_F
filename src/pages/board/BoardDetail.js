@@ -1,157 +1,268 @@
+// import React, { useEffect, useState } from "react";
+// import { useParams } from "react-router-dom";
+// import axios from "axios";
+// import "../../styles/board/boardDetail.css";
+
+// const BoardDetail = () => {
+//     const { boardId } = useParams();
+//     const [board, setBoard] = useState(null);
+//     const [comments, setComments] = useState([]);
+//     const [likeCount, setLikeCount] = useState(0);
+//     const [isLiked, setIsLiked] = useState(false);
+
+//     useEffect(() => {
+//         fetchBoardDetail();
+//         fetchComments();
+//         fetchLikeStatus();
+//         fetchLikeCount();
+//     }, [boardId]);
+
+//     // 게시글 상세 정보 가져오기
+//     const fetchBoardDetail = async () => {
+//         try {
+//             const response = await axios.get(`/api/v1/boards/${boardId}`);
+//             setBoard(response.data);
+//         } catch (error) {
+//             console.error("게시글 상세 정보 가져오기 실패", error);
+//         }
+//     };
+
+//     // 댓글 목록 가져오기
+//     const fetchComments = async () => {
+//         try {
+//             const response = await axios.get(`/api/v1/comments/by-board/${boardId}`);
+//             setComments(response.data);
+//         } catch (error) {
+//             console.error("댓글 목록 가져오기 실패", error);
+//         }
+//     };
+
+//     // 좋아요 상태 확인
+//     const fetchLikeStatus = async () => {
+//         try {
+//             const response = await axios.get(`/api/v1/likes/BOARD/${boardId}/status`, {
+//                 params: { userId: "현재_사용자_ID" },
+//             });
+//             setIsLiked(response.data);
+//         } catch (error) {
+//             console.error("좋아요 상태 확인 실패", error);
+//         }
+//     };
+
+//     // 좋아요 개수 확인
+//     const fetchLikeCount = async () => {
+//         try {
+//             const response = await axios.get(`/api/v1/likes/BOARD/${boardId}/count`);
+//             setLikeCount(response.data);
+//         } catch (error) {
+//             console.error("좋아요 개수 가져오기 실패", error);
+//         }
+//     };
+
+//     if (!board) return <div>Loading...</div>;
+
+//     // 타입에 따라 클래스 이름 설정
+//     const containerClass = `board-detail-container ${board.type.toLowerCase()}`;
+
+//     return (
+//         <div className={containerClass}>
+//             <h2 className="board-title">{board.title}</h2>
+//             <div className="board-meta">
+//                 <span className="board-author">{board.userId}</span>
+//                 <span className="board-date">{new Date(board.cDate).toLocaleString()}</span>
+//             </div>
+//             <div className="board-content">{board.content}</div>
+            
+//             <div className="board-images">
+//                 {board.images.map((image, index) => (
+//                     <img
+//                         key={index}
+//                         src={`http://localhost:3000/uploads/${encodeURIComponent(image.fileName)}`}
+//                         alt={`Board Image ${index + 1}`}
+//                         className="board-image"
+//                     />
+//                 ))}
+//             </div>
+            
+//             <div className="board-hashtags">
+//                 {board.hashTag && board.hashTag.split(" ").map((tag, index) => (
+//                     <span key={index} className="board-tag">{tag}</span>
+//                 ))}
+//             </div>
+            
+//             <div className="board-likes">
+//                 <button className={`like-button ${isLiked ? "liked" : ""}`}>
+//                     ♥ {likeCount}
+//                 </button>
+//             </div>
+            
+//             <div className="board-comments">
+//                 <h3>댓글</h3>
+//                 {comments.map(comment => (
+//                     <div key={comment.commentId} className="comment">
+//                         <p>{comment.content}</p>
+//                         <span>{comment.userId}</span>
+//                         <span>{new Date(comment.coCDate).toLocaleString()}</span>
+//                     </div>
+//                 ))}
+//             </div>
+//         </div>
+//     );
+// };
+
+// export default BoardDetail;
+
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
 import axios from "axios";
+import "../../styles/board/boardDetail.css";
 
-function BoardDetail() {
-  const { id } = useParams();
-  const [post, setPost] = useState(null);
-  const [comments, setComments] = useState([]);
-  const [newComment, setNewComment] = useState("");
-  const [newReply, setNewReply] = useState({});
+const BoardDetail = () => {
+    const { boardId } = useParams();
+    const [board, setBoard] = useState(null);
+    const [comments, setComments] = useState([]);
+    const [likeCount, setLikeCount] = useState(0);
+    const [isLiked, setIsLiked] = useState(false);
 
-  // Redux에서 닉네임과 프로필 이미지 가져오기
-  const nickname = useSelector((state) => state.auth.nickname);
-  const profileImage = useSelector((state) => state.auth.profileImage);
+    useEffect(() => {
+        fetchBoardDetail();
+        fetchComments();
+        fetchLikeStatus();
+        fetchLikeCount();
+    }, [boardId]);
 
-  useEffect(() => {
-    fetchPost();
-    fetchComments();
-  }, [id]);
+    // 게시글 상세 정보 가져오기
+    const fetchBoardDetail = async () => {
+        try {
+            const response = await axios.get(`/api/v1/boards/${boardId}`);
+            setBoard(response.data);
+        } catch (error) {
+            console.error("게시글 상세 정보 가져오기 실패", error);
+        }
+    };
 
-  const fetchPost = async () => {
-    try {
-      const response = await axios.get(`/api/v1/boards/${id}`);
-      setPost(response.data);
-    } catch (error) {
-      console.error("Error fetching post:", error);
-    }
-  };
+    // 댓글 목록 가져오기
+    const fetchComments = async () => {
+        try {
+            const response = await axios.get(`/api/v1/comments/by-board/${boardId}`);
+            setComments(response.data);
+        } catch (error) {
+            console.error("댓글 목록 가져오기 실패", error);
+        }
+    };
 
-  const fetchComments = async () => {
-    try {
-      const response = await axios.get(`/api/v1/comments/by-board/${id}`);
-      setComments(response.data);
-    } catch (error) {
-      console.error("Error fetching comments:", error);
-    }
-  };
+    // 좋아요 상태 확인
+    const fetchLikeStatus = async () => {
+        try {
+            const response = await axios.get(`/api/v1/likes/BOARD/${boardId}/status`, {
+                params: { userId: "현재_사용자_ID" },
+            });
+            setIsLiked(response.data);
+        } catch (error) {
+            console.error("좋아요 상태 확인 실패", error);
+        }
+    };
 
-  const handleAddComment = async () => {
-    if (!newComment.trim()) {
-      alert("댓글 내용을 입력해주세요.");
-      return;
-    }
+    // 좋아요 개수 확인
+    const fetchLikeCount = async () => {
+        try {
+            const response = await axios.get(`/api/v1/likes/BOARD/${boardId}/count`);
+            setLikeCount(response.data);
+        } catch (error) {
+            console.error("좋아요 개수 가져오기 실패", error);
+        }
+    };
 
-    try {
-      const response = await axios.post(`/api/v1/comments`, {
-        boardId: id,
-        nickname: nickname || "익명",
-        profileImage: profileImage || null,
-        content: newComment,
-      });
+    if (!board) return <div>Loading...</div>;
 
-      setComments((prev) => [...prev, response.data]);
-      setNewComment(""); // 입력 필드 초기화
-    } catch (error) {
-      console.error("Error adding comment:", error);
-      alert("댓글 작성에 실패했습니다.");
-    }
-  };
+    // 타입에 따라 클래스 이름 설정
+    const containerClass = `board-detail-container ${board.type.toLowerCase()} ${board.images.length > 0 ? "with-image" : "no-image"}`;
 
-  const handleAddReply = async (commentId) => {
-    if (!newReply[commentId]?.trim()) {
-      alert("대댓글 내용을 입력해주세요.");
-      return;
-    }
+    const formatDate = (date) => {
+        const now = new Date();
+        const postDate = new Date(date);
+        const diff = (now - postDate) / 1000;
+        if (diff < 60) return `${Math.floor(diff)}분 전`;
+        if (diff < 3600) return `${Math.floor(diff / 60)}시간 전`;
+        return postDate.toLocaleDateString();
+    };
 
-    try {
-      const response = await axios.post(`/api/v1/re-comments`, {
-        commentId: commentId,
-        nickname: nickname || "익명",
-        profileImage: profileImage || null,
-        content: newReply[commentId],
-      });
-
-      // 대댓글 추가 후 상태 업데이트
-      setComments((prev) =>
-        prev.map((comment) =>
-          comment.commentId === commentId
-            ? { ...comment, childComments: [...comment.childComments, response.data] }
-            : comment
-        )
-      );
-
-      setNewReply((prev) => ({ ...prev, [commentId]: "" })); // 입력 필드 초기화
-    } catch (error) {
-      console.error("Error adding reply:", error);
-      alert("대댓글 작성에 실패했습니다.");
-    }
-  };
-
-  return (
-    <div className="board-detail">
-      {/* 게시글 상세 */}
-      <h1>{post?.title}</h1>
-      <p>{post?.content}</p>
-
-      {/* 댓글 작성 */}
-      <div>
-        <textarea
-          value={newComment}
-          onChange={(e) => setNewComment(e.target.value)}
-          placeholder="댓글을 입력하세요"
-        />
-        <button onClick={handleAddComment}>댓글 작성</button>
-      </div>
-
-      {/* 댓글 목록 */}
-      <div>
-        {comments.map((comment) => (
-          <div key={comment.commentId}>
-            <div>
-              <img
-                src={comment.profileImage || "https://via.placeholder.com/150"}
-                alt={comment.nickname}
-                width={30}
-                height={30}
-              />
-              <span>{comment.nickname}</span>
+    return (
+      <div className={containerClass}>
+        <div className="board-header">
+            <div className="header-left-icons">
+                <img src="assets/icon/ArrowBack.png" alt="Back" className="back-icon" />
+                <img src="assets/icon/IconHome.png" alt="Home" className="home-icon" />
             </div>
-            <p>{comment.content}</p>
-
-            {/* 대댓글 입력 */}
-            <div>
-              <textarea
-                value={newReply[comment.commentId] || ""}
-                onChange={(e) =>
-                  setNewReply((prev) => ({ ...prev, [comment.commentId]: e.target.value }))
-                }
-                placeholder="대댓글을 입력하세요"
-              />
-              <button onClick={() => handleAddReply(comment.commentId)}>대댓글 작성</button>
-            </div>
-
-            {/* 대댓글 목록 */}
-            {comment.childComments?.map((reply) => (
-              <div key={reply.commentId}>
-                <div>
-                  <img
-                    src={reply.profileImage || "https://via.placeholder.com/150"}
-                    alt={reply.nickname}
-                    width={30}
-                    height={30}
-                  />
-                  <span>{reply.nickname}</span>
+            <img src="assets/icon/IconMenuDotsVertical.png" alt="More" className="menu-icon" />
+        </div>
+        {board.images.length > 0 && (
+                <div className="board-image-carousel">
+                    {board.images.map((image, index) => (
+                        <img
+                            key={index}
+                            src={`http://localhost:3000/uploads/${encodeURIComponent(image.fileName)}`}
+                            alt={`Board Image ${index + 1}`}
+                            className="board-carousel-image"
+                        />
+                    ))}
                 </div>
-                <p>{reply.content}</p>
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
+            )}
+            <h1 className="Detail-logo-text-wrapper">
+              <span className="logo-text static">HooL</span>
+              <span className={`logo-text dynamic ${board.type.toLowerCase()}`}>
+                HooL
+              </span>
+            </h1>
+            <div className="board-info">
+                <div className="author-info">
+                    <div className="profile-image" style={{ backgroundImage: `url(${board.userProfileImage})` }} />
+                    <div className="author-details">
+                        <p className="author-name">{board.userId}</p>
+                        <p className="post-date">
+                            <span className="icon clock-icon" />
+                            {formatDate(board.cDate)}
+                            <span className="icon commentCount-icon" />
+                            {comments.length}
+                        </p>
+                    </div>
+                </div>
+                <div className="like-button-wrapper">
+                    <button className={`like-button ${isLiked ? "liked" : ""}`}>
+                        <span className="icon heart-icon" /> {likeCount}
+                    </button>
+                </div>
+            </div>
+
+            <div className="board-content-wrapper">
+                <h2 className="board-content-title">{board.title}</h2>
+                <div className="board-hashtags">
+                    {board.hashTag && board.hashTag.split(" ").map((tag, index) => (
+                        <span key={index} className="board-tag">{tag}</span>
+                    ))}
+                </div>
+                <div className="board-content">{board.content}</div>
+                <p className="board-stats">
+                    좋아요 {likeCount} · 조회 {board.view}
+                </p>
+            </div>
+
+            <div className="board-comments">
+                <h3>댓글</h3>
+                {comments.map(comment => (
+                    <div key={comment.commentId} className="comment">
+                        <p>{comment.content}</p>
+                        <span>{comment.userId}</span>
+                        <span>{formatDate(comment.coCDate)}</span>
+                        <button className="icon comment-like-icon" />
+                        <button className="icon reCommentCount-icon" />
+                        <button className="icon menu-icon" />
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+};
 
 export default BoardDetail;
+

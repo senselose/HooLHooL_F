@@ -25,8 +25,10 @@ const BottomNav = () => {
   ];
 
   // ✅ 로고 클릭 시 상태 변경 (Positive ↔ Negative)
+
   const toggleLogo = () => {
     setIsPositiveLogo((prev) => !prev);
+    onLogoClick(isPositiveLogo ? "NEGATIVE" : "POSITIVE"); // BoardList에 타입 전달
   };
 
   return (
@@ -34,21 +36,21 @@ const BottomNav = () => {
       {navItems.map((item, index) => (
         <button
           key={index}
-          className={`nav-item 
-            ${item.icon === Logo_positive || item.icon === Logo_negative ? "logo-button" : ""} 
+          className={`nav-item
+            ${item.icon === Logo_positive || item.icon === Logo_negative ? "logo-button" : ""}
             ${location.pathname === item.path ? "active" : ""}`}
           onClick={() => {
             if (item.name === "") {
-              toggleLogo(); // ✅ 로고 클릭 시 색 변경
+              toggleLogo();
             } else {
               navigate(item.path);
             }
           }}
         >
-          <img 
-            src={item.icon} 
-            alt={item.name} 
-            className={`nav-icon ${item.icon === Logo_positive || item.icon === Logo_negative ? "logo-icon" : ""}`} 
+          <img
+            src={item.icon}
+            alt={item.name}
+            className={`nav-icon ${item.icon === Logo_positive || item.icon === Logo_negative ? "logo-icon" : ""}`}
           />
         </button>
       ))}
