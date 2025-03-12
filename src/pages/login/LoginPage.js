@@ -47,7 +47,9 @@ const LoginPage = () => {
   return (
     <Background type="default_blur">
       <Page className="login-page" scrollable={false} >
-        <BackButton />
+        <div className="login-page-backbutton">
+          <BackButton onClick={() => navigate(-1)} />
+        </div>
         <div id="login-page">
           <div className="fade-in">
             <div className="login-container">

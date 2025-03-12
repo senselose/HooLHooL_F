@@ -1,31 +1,22 @@
 /* Container 스타일 */
 .register-container {
-  width: 90%;
-  max-width: 375px;
+  width: 100%;
+  max-width: 390px;
   height: 100vh;
-  background: white;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  padding: 5%;
-  background-image: url("assets/background/blur_ver91.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
 /* Header 스타일 */
 .register-container .register-header h1 {
-  width: 80%;
+  width: 100%;
   padding-top: 25%;
   padding-bottom: 10%;
-  font-size: 6vw;
-  color: var(--text-color);
   text-align: left;
   margin: 5% 5% 2% 5%;
 }
 
 /* Form 스타일 */
 .register-form {
-  width: 80%;
+  width: 100%;
   max-width: 375px;
   height: 100vh;
   padding: 5% 10%;
@@ -62,10 +53,10 @@
 }
 
 .step-buttons button {
-  padding: 10px 20px;
+  padding: 8px 20px;
   border: none;
   border-radius: 30px;
-  background-color: var(--primary-color);
+  background-color: black;
   color: white;
   cursor: pointer;
 }

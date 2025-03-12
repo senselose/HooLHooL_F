@@ -5,11 +5,11 @@ import IconHome from "assets/icon/IconHome.png";
 import IconMenu from "assets/icon/IconMenu.png";
 import IconUser from "assets/icon/IconUser.png";
 import IconShopping from "assets/icon/IconShopping.png";
-import IconSearch from "assets/icon/IconSearch.png"
 import Logo_positive from "assets/logo/logo_positive.png";
 import Logo_negative from "assets/logo/logo_negative.png";
+import IconSearch from "assets/icon/IconSearch.png"
 
-const BottomNav = () => {
+const BottomNav = ({ onLogoClick }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -28,8 +28,13 @@ const BottomNav = () => {
 
   const toggleLogo = () => {
     setIsPositiveLogo((prev) => !prev);
-    onLogoClick(isPositiveLogo ? "NEGATIVE" : "POSITIVE"); // BoardList에 타입 전달
+    if (typeof onLogoClick === "function") {
+      onLogoClick(isPositiveLogo ? "NEGATIVE" : "POSITIVE");
+    } else {
+      console.error("❌ onLogoClick is not a function!");
+    }
   };
+  
 
   return (
     <nav className="bottom-nav">

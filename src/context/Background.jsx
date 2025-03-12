@@ -30,8 +30,8 @@ const Background = ({ type = "default", children }) => {
       minHeight: "100vh",
     },
     white: {
-      // backgroundImage: `url(${White})`,
-      backgroundColor : "#FAFAF8",
+      backgroundImage: `url(${White})`,
+      // backgroundColor : "#FAFAF8",
       backgroundSize: "cover",
       minHeight: "100vh",
     },

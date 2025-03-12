@@ -14,26 +14,21 @@ import Menu from 'pages/menu/menu'
 import BoardForm from 'pages/board/boardForm';
 import BoardList from 'pages/board/BoardList';
 import BoardDetail from 'pages/board/BoardDetail';
-// import Register from 'components/login/Register';
-// import Main from './components/main/main';
-// import SevenHell from './components/hellmap/SevenHell';
-// import HellPages from './components/main/pages/HellPages'; // 경로에 맞게 수정
-// import VillainUploader from "./components/hellmap/VillainUploader.js";
+
 import AuthCheck from 'utils/AuthCheck';
 import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from "react-redux";
 import store, { persistor } from "./reducers/store"; // store.js 경로에 맞게 수정 지은 추가
 import FloatingButton from 'components/floatingButton/FloatingButton';
-import Header from 'layouts/header';
 //마이페이지 관련
 import MyPage from 'pages/MyPage/MyPage';
 import ProfileInfo from 'pages/MyPage/ProfileInfo';
 import EditProfile from 'pages/MyPage/EditProfile';
 import PointMarket from 'pages/pointMarket/PointMarket';
 import ProductDetail from 'pages/pointMarket/ProductDetail';
-// import MyPosts from './components/profile/MyPosts.js'; // 지은 추가
-// import MyComments from './components/profile/MyComments.js'; // 지은 추가
-// import YoutubeLive from './components/menu/YoutubeLive.js';
+
+
+
 import BottomNav from 'layouts/BottomNav';
 import CheckPassword from 'components/mypage/CheckPassword';
 import ActiveLog from 'pages/MyPage/ActiveLog';

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "styles/login/newRegister.css";
-
+import Background from "context/Background";
+import Page from "components/styles/Page";
 const NavigationButtons = ({ onPrev, onNext, nextDisabled }) => {
   return (
     <div className="step-buttons">
@@ -228,15 +229,27 @@ const NewRegister = () => {
   const nextStep = () => setStep((prev) => prev + 1);
   const prevStep = () => setStep((prev) => prev - 1);
 
-  //-------------------------------------------------------
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    console.log("🚀 회원가입 버튼 클릭됨!"); // 1️⃣ 확인: 버튼이 눌렸는지
   
     if (formData.password !== formData.confirmPassword) {
       alert("비밀번호가 일치하지 않습니다.");
       return;
     }
+  
+    const requestData = {
+      userId: formData.userId,
+      password: formData.password,
+      name: formData.name,
+      tell: formData.tell,
+      email: formData.email,
+      nickname: formData.nickname,
+    };
+  
+    console.log("📡 전송할 회원가입 데이터:", requestData); // 2️⃣ 확인: 데이터가 올바른지
   
     try {
       const response = await fetch("/api/v1/auth/register", {
@@ -244,31 +257,31 @@ const NewRegister = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          userId: formData.userId,
-          password: formData.password,
-          name: formData.name,
-          tell: formData.tell,
-          email: formData.email,
-          nickname: formData.nickname,
-        }),
+        body: JSON.stringify(requestData),
       });
   
+      console.log("📡 서버 응답 상태 코드:", response.status); // 3️⃣ 확인: 응답 상태
+  
       if (response.ok) {
+        const responseData = await response.json();
+        console.log("✅ 회원가입 성공:", responseData);
         alert("회원가입이 완료되었습니다!");
         navigate("/mypage");
       } else {
         const errorData = await response.json();
+        console.error("❌ 회원가입 실패 응답:", errorData);
         alert(`회원가입 실패: ${errorData.message || "알 수 없는 오류"}`);
       }
     } catch (error) {
-      console.error("회원가입 요청 실패:", error);
+      console.error("❌ 회원가입 요청 실패:", error);
       alert("회원가입 요청 중 오류가 발생했습니다.");
     }
   };
   
 
   return (
+    <Background type="default_blur">
+      <Page scrollable={true}>
     <div className="register-container">
       <div className="register-header">
         <h1>회원가입</h1>
@@ -415,6 +428,8 @@ const NewRegister = () => {
         )}
       </form>
     </div>
+    </Page>
+    </Background>
   );
 };
 
