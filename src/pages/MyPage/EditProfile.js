@@ -115,7 +115,7 @@ const EditProfile = () => {
   };
   
   return (
-    <Background type="mypage">
+    <Background type="gray">
       <Page scrollable={false} id="editProfile">
         <section className="edit-profile-container">
           <h1 className="editProfile-title">새로운 {fieldNames[field]} 입력해주세요</h1>
@@ -127,14 +127,14 @@ const EditProfile = () => {
                 <>
                   <input
                     type="password"
-                    className="input-textfield1"
+                    className="input-textfield"
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
                     placeholder="비밀번호를 입력해주세요"
                   />
                   <input
                     type="password"
-                    className="input-textfield1"
+                    className="input-textfield"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="비밀번호를 다시 한번 입력해주세요"

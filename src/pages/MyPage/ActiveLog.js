@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import BottomNav from "layouts/BottomNav";
 import Page from "components/styles/Page.jsx";
 import Background from "context/Background.jsx";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "styles/MyPage/activeLog.css";
 import BackButton from "components/Buttons/BackButton";
 
@@ -26,55 +26,13 @@ import BackButton from "components/Buttons/BackButton";
     ]
   };
 
-//   return (
-//     <Background type="mypage">
-//       <Page id="activeLog" scrollable={true}>
-//         <section className="activeLog-container">
-//           {/* Header */}
-//           <div className="header">나의 스토리</div>
-//         </section>
-
-//         {/* Filters */}
-//         <section className="filters">
-//           {filters.map((filter) => (
-//             <button
-//               key={filter}
-//               className={`filter-button ${selectedFilter === filter ? "selected" : ""}`}
-//               onClick={() => setSelectedFilter(filter)}
-//             >
-//               {filter}
-//             </button>
-//           ))}
-//         </section>
-
-//         {/* Post List */}
-//         <section className="activeLog-postList-section">
-//           {postData[selectedFilter]?.length > 0 ? (
-//             postData[selectedFilter].map((post, index) => (
-//               <div key={index} className="post-item">
-//                 <span className="category">{post.category}</span>
-//                 <p className="post-title">{post.title}</p>
-//                 <p className="post-info">{post.date} 조회 {post.views}</p>
-//               </div>
-//             ))
-//           ) : (
-//             <p className="no-data">게시물이 없습니다.</p>
-//           )}
-//         </section>
-//       </Page>
-//       <BottomNav />
-//     </Background>
-//   );
-// };
-
-// export default ActiveLog;
 
 const ActiveLog = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const initialFilter = queryParams.get("filter") || "내가 쓴 글";
   const [selectedFilter, setSelectedFilter] = useState(initialFilter);
-
+  const navigate = useNavigate();
   
   useEffect(() => {
     setSelectedFilter(initialFilter);
@@ -85,7 +43,9 @@ const ActiveLog = () => {
   return (
     <Background type="mypage">
       <Page id="activeLog" scrollable={true}>
-      <BackButton />
+        <div className="activeLog-backbutton">
+          <BackButton onClick={() => navigate(-1)} />
+        </div>
         <section className="activeLog-container">
           <div className="header">나의 활동 스토리</div>
         </section>

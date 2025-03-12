@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Page from "components/styles/Page";
 import Background from "context/Background.jsx";
 import BottomNav from "layouts/BottomNav";
-
+import IconPen from "assets/icon/IconPen.png"
 import "styles/menu/menu.css"; // Menu 전용 스타일
 import "styles/page.css"; // 공통 스타일
 
@@ -38,6 +38,12 @@ const cardData = [
     title: "리워드",
     description: "포인트 리워드를\n확인하세요~!",
     url : "/questPage",
+  },
+  {
+    image: IconPen,
+    title: "게시판",
+    description: "마음을 나누고\n확인하세요~!",
+    url : "/main",
   },
 ];
 

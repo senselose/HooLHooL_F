@@ -3,6 +3,11 @@
   padding-bottom: 2vh; /* 화면 높이에 비례하는 여백 */
 }
 
+.activeLog-backbutton{
+  position: absolute;
+  top : 7vh;
+
+}
 /* 헤더 (제목) */
 .header {
   padding: 2vh 2vw; /* 화면 크기에 따라 조정 */
@@ -10,7 +15,7 @@
   font-weight: bold;
   text-align: left;
   padding-bottom: 0;
-  margin-top: 4vh;
+  margin-top: 8vh;
 }
 
 /* 필터 버튼 섹션 */

@@ -3,7 +3,6 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: #f8f9fa;
   padding: 5vh 7vw;
   box-sizing: border-box; /* ✅ 내부 요소 크기 계산 문제 해결 */
 }
@@ -18,7 +17,7 @@
 }
 
 .input-wrapper {
-  width: 90%;
+  width: 100%;
   max-width: 400px;
   display: flex;
   flex-direction: column;
@@ -34,45 +33,32 @@
 .input-container {
   display: flex;
   align-items: center;
-  margin-top: 3%;
+  margin-top: 20px;
   border-radius: 30px;
   padding: 2%;
   flex-direction: column; /* 🔥 세로 정렬 */
   align-items: stretch; /* 입력 필드 너비 맞춤 */
-  background-color: #f9f9f9;
+  /* background-color: #F5F5F5; */
   width: 100%; /* 입력 컨테이너 크기 고정 */
 }
 
 .input-textfield {
-  width: calc(100% - 2rem);
+  width: 100%;
   max-width: 350px;
+  padding: 0.8rem;
+  font-size: clamp(1rem, 1rem, 1.2rem);
+  background: #F5F5F5;
   border: none;
-  font-size: 1rem;
-  background: none;
   outline: none;
-  border-radius: 0;
-  padding: 5%;
-  margin-bottom: 5%;
-  border-bottom: 2px solid transparent; /* 기본 상태에서 투명 */
-  transition: box-shadow 0.2s ease-in-out;
+  padding-left: 10px;
+  text-align: left;
+  text-indent: 10px;
+  margin-bottom: 30px;
+  transition: border-bottom 0.2sease-in-out;
 }
 
 .input-textfield:focus {
-  box-shadow: 0 2px 0 #007BFF; /* 포커스 시 강조 */
-}
-.input-textfield1 {
-  display: column;
-  flex: 1; 
-  min-width: 0; 
-  border: none;
-  font-size: 1rem;
-  background: none;
-  outline: none;
-  border-radius: 0;
-  padding: 5%;
-
-  border-bottom: 2px solid transparent; /* 기본 상태에서 투명 */
-  transition: box-shadow 0.2s ease-in-out;
+  border-bottom: 2px solid #007BFF; /* ✅ 포커스 시 밑줄만 표시 */
 }
 
 .clear-btn {
