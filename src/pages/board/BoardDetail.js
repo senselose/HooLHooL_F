@@ -209,7 +209,7 @@ const BoardDetail = () => {
                 </div>
             )}
             <h1 className="Detail-logo-text-wrapper">
-              <span className="logo-text static">HooL</span>
+              <span className="logo-text static">HooL</span>    
               <span className={`logo-text dynamic ${board.type.toLowerCase()}`}>
                 HooL
               </span>
