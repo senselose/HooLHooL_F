@@ -140,7 +140,7 @@ const ProfileInfo = () => {
     <Background type="mypage">
       <Page id="profileInfo" scrollable={true}>
         <header className="profileInfo-header">
-          <BackButton onClick={() => navigate(-1)} />
+          <BackButton onClick={() => navigate("/mypage")} />
           <h1 className="profileInfo-title">프로필 정보</h1>
         </header>
           <p className="profileInfo-subtitle">{userData.name}님의 개인정보를 확인하세요.</p>
@@ -226,7 +226,9 @@ const ProfileInfo = () => {
                 checked={userData.marketing}
                 onChange={handleMarketingToggle}
               />
-              <span className="slider"></span>
+              <span className="slider">
+              {/* {userData.marketing ? "ON" : "OFF"} */}
+              </span>
             </label>
           </div>
 

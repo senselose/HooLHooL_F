@@ -12,7 +12,6 @@ const fieldNames = {
   tell: "휴대폰 번호",
   email: "이메일 주소",
   birth: "생년월일",
-  company: "회사",
 };
 
 const EditProfile = () => {
@@ -43,7 +42,7 @@ const EditProfile = () => {
         if (!response.ok) throw new Error("사용자 정보를 가져올 수 없습니다.");
 
         const data = await response.json();
-        console.log("✅ 사용자 데이터:", data); // 🔥 디버깅 로그 추가
+        console.log("✅ 사용자 데이터이건가?:", data); // 🔥 디버깅 로그 추가
         setUserData(data);
         setValue(data[field] || ""); // URL에서 가져온 field 값 설정
       } catch (error) {

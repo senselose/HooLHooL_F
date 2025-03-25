@@ -2,24 +2,33 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "styles/login/newRegister.css";
 import Background from "context/Background";
+import { useDispatch } from "react-redux"; // Redux 사용
+
 import Page from "components/styles/Page";
-const NavigationButtons = ({ onPrev, onNext, nextDisabled }) => {
+import BackButton from "components/Buttons/BackButton";
+
+import defaultProfileIamge from "assets/image/default-profile-image.png";
+
+//안코코
+const NavigationButtons = ({ onPrev, onNext, nextDisabled, isFinalStep }) => {
   return (
     <div className="step-buttons">
-      {onPrev && <button onClick={onPrev}>이전</button>}
+      {onPrev && <button type="button" onClick={onPrev}>이전</button>}
       {onNext && (
-        <button onClick={onNext} disabled={nextDisabled}>
-          다음
+        <button
+          type={isFinalStep ? "submit" : "button"} 
+          onClick={!isFinalStep ? onNext : undefined} 
+          disabled={nextDisabled}
+        >
+          {isFinalStep ? "회원가입 완료" : "다음"}
         </button>
       )}
     </div>
   );
 };
 
-
-//--------------------------------------------------------
-
 const NewRegister = () => {
+  const dispatch = useDispatch(); // Redux 디스패치 가져오기
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     userId: "",
@@ -29,6 +38,7 @@ const NewRegister = () => {
     tell: "",
     email: "",
     nickname: "",
+    profileImage:"",
   });
   const [validationMessages, setValidationMessages] = useState({});
   const navigate = useNavigate();
@@ -59,44 +69,7 @@ const NewRegister = () => {
         validatePasswordMatch(value, formData.password);
       }
     };
-  
 
-
-  // const validateField = async (field, value) => {
-  //   if (!value.trim()) {
-  //     setValidationMessages((prev) => ({
-  //       ...prev,
-  //       [field]: `${field}을(를) 입력해 주세요.`,
-  //     }));
-  //     return;
-  //   }
-  
-  //   let isAvailable = false;
-  
-  //   try {
-  //     if (field === "userId") {
-  //       isAvailable = await checkId(value);
-  //     } else if (field === "email") {
-  //       isAvailable = await checkEmail(value);
-  //     } else if (field === "nickname") {
-  //       isAvailable = await checkNickname(value);
-  //     } else if (field === "tell") { // 핸드폰 번호 중복 확인 추가
-  //       isAvailable = await checkTell(value);
-  //     }
-  
-  //     setValidationMessages((prev) => ({
-  //       ...prev,
-  //       [field]: isAvailable
-  //         ? `사용할 수 있는 ${field}입니다.`
-  //         : `중복된 ${field}입니다. 다른 값을 입력해 주세요.`,
-  //     }));
-  //   } catch (error) {
-  //     setValidationMessages((prev) => ({
-  //       ...prev,
-  //       [field]: `${field} 확인 중 오류가 발생했습니다.`,
-  //     }));
-  //   }
-  // };
   
   const validateField = async (field, value) => {
     if (!value.trim()) {
@@ -229,7 +202,40 @@ const NewRegister = () => {
   const nextStep = () => setStep((prev) => prev + 1);
   const prevStep = () => setStep((prev) => prev - 1);
 
+  const autoLogin = async (userId, password) => {
+    try {
+      const response = await fetch("http://localhost:8080/api/v1/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId, password }),
+      });
+  
+      if (!response.ok) {
+        throw new Error("자동 로그인 실패");
+      }
+  
+      const loginData = await response.json();
+      console.log("✅ 자동 로그인 성공:", loginData);
+  
+      // ✅ Redux & localStorage 업데이트
+      dispatch({ type: "SET_USER", payload: loginData }); // Redux에 저장
+      dispatch({ type: "SET_USER_ID", payload: response.data.userId }); // 회원가입 정보 리스트 받아 보기 위함.
+      console.log("📡 로그인 API 응답:", response.data);
+      localStorage.setItem("token", loginData.token);
+      localStorage.setItem("userData", JSON.stringify(loginData));
+  
+      return true; // ✅ 로그인 성공 시 true 반환
+  
+    } catch (error) {
+      console.error("❌ 자동 로그인 실패:", error);
+      alert("자동 로그인 중 오류가 발생했습니다.");
+      return false; // ✅ 로그인 실패 시 false 반환
+    }
+  };
 
+  //handleSubmit에서 autoLogin 호출 후, 성공 시에만 마이페이지로 이동
   const handleSubmit = async (e) => {
     e.preventDefault();
   
@@ -239,7 +245,12 @@ const NewRegister = () => {
       alert("비밀번호가 일치하지 않습니다.");
       return;
     }
-  
+
+
+    // const defaultProfileImageURL = defaultProfileIamge; // ✅ 문자열 URL
+    const defaultProfileImageURL = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"; // 기본 프로필 이미지
+
+
     const requestData = {
       userId: formData.userId,
       password: formData.password,
@@ -247,6 +258,7 @@ const NewRegister = () => {
       tell: formData.tell,
       email: formData.email,
       nickname: formData.nickname,
+      profileImage: formData.profileImage || defaultProfileImageURL,
     };
   
     console.log("📡 전송할 회원가입 데이터:", requestData); // 2️⃣ 확인: 데이터가 올바른지
@@ -266,7 +278,7 @@ const NewRegister = () => {
         const responseData = await response.json();
         console.log("✅ 회원가입 성공:", responseData);
         alert("회원가입이 완료되었습니다!");
-        navigate("/mypage");
+        navigate("/loginPage");
       } else {
         const errorData = await response.json();
         console.error("❌ 회원가입 실패 응답:", errorData);
@@ -278,16 +290,26 @@ const NewRegister = () => {
     }
   };
   
+  const goToRegister = () => {
+    navigate("/register", {
+      state: { from: "loginPage" } // ✅ 어디서 왔는지 표시
+    });
+  };
+  
 
   return (
     <Background type="default_blur">
-      <Page scrollable={true}>
-    <div className="register-container">
-      <div className="register-header">
+      <Page scrollable={false}> 
+      <div className="register-container">
+      {/* <BackButton className="register-backButton" onClick={() => navigate("/initScreen")} /> */}
+        <div>
+          <BackButton variant="default" className="back-button"/>
+        </div>
+      <div className="register-title">
         <h1>회원가입</h1>
       </div>
-      <form className="register-form">
-        {step === 1 && (
+      <form className="register-form" onSubmit={handleSubmit}>
+      {step === 1 && (
           <div className="step">
             <label htmlFor="userId">아이디</label>
             <input
@@ -404,28 +426,28 @@ const NewRegister = () => {
             <NavigationButtons onPrev={prevStep} onNext={nextStep} />
           </div>
         )}
-        {step === 6 && (
-          <div className="step">
-            <label htmlFor="nickname">닉네임</label>
-            <input
-              type="text"
-              id="nickname"
-              name="nickname"
-              value={formData.nickname}
-              onChange={handleChange}
-              onKeyPress={handleKeyPress} // 엔터키 감지
-              placeholder="닉네임을 입력하세요"
-            />
-            <p className={`validation-message ${validationMessages.nickname?.includes("사용할 수 있는") ? "success" : "error"}`}>
-              {validationMessages.nickname}
-            </p>
-            <NavigationButtons
+          {step === 6 && (
+            <div className="step">
+              <label htmlFor="nickname">닉네임</label>
+              <input
+                type="text"
+                id="nickname"
+                name="nickname"
+                value={formData.nickname}
+                onChange={handleChange}
+                placeholder="닉네임을 입력하세요"
+              />
+              <p className={`validation-message ${validationMessages.nickname?.includes("사용할 수 있는") ? "success" : "error"}`}>
+                {validationMessages.nickname}
+              </p>
+              <NavigationButtons
                 onPrev={prevStep}
-                onNext={handleSubmit}
+                onNext={handleSubmit} // 🔥 마지막 단계에서 handleSubmit 실행
+                isFinalStep={true} // 마지막 단계이므로 회원가입 버튼 활성화
                 nextDisabled={!validationMessages.nickname?.includes("사용할 수 있는")}
               />
-          </div>
-        )}
+            </div>
+          )}
       </form>
     </div>
     </Page>

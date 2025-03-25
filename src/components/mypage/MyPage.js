@@ -28,7 +28,6 @@ import ChatIcon from '@mui/icons-material/Chat'; // 게시글 확인 (내가 쓴
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'; // > 아이콘
 import Header from "layouts/header";
 
-
 // 다크모드 테마 생성
 const darkTheme = createTheme({
   palette: {
@@ -52,7 +51,7 @@ const MyPage = () => {
     nickname: "",
     email: "",
     info: "안녕하세요! 사용자 정보를 불러오는 중입니다.",
-    profileImage: "https://via.placeholder.com/150",
+    profileImage: "",
   }); // 사용자 데이터 상태
   const [loading, setLoading] = useState(true); // 로딩 상태 관리
   const [passwordDialogOpen, setPasswordDialogOpen] = useState(false); // 비밀번호 확인 모달 상ㅌ

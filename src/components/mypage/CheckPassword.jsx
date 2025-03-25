@@ -17,7 +17,7 @@ const CheckPassword = () => {
   const passwordInputRef = useRef(null); // ✅ input 요소 참조
 
   useEffect(() => {
-      passwordInputRef.current?.focus(); // ✅ 페이지 진입 시 자동 포커스
+    passwordInputRef.current?.focus(); // ✅ 페이지 진입 시 자동 포커스
   }, []);
 
 
@@ -63,10 +63,14 @@ const CheckPassword = () => {
     }
   };
 
+
   return (
     <Background type="gray">
-      <Page id="checkPassword">
-        <div className="check-password-container">
+      <Page scrollable={false} id="checkPassword">
+        <section className="check-password-container">
+            <div>
+              <BackButton className="back-button"/>
+            </div>
           <h2 className="check-password-title">비밀번호 확인</h2>
           <p className="check-password-description">개인정보 보호를 위해 비밀번호를 다시 입력해주세요.</p>
 
@@ -87,7 +91,7 @@ const CheckPassword = () => {
             <button className="check-password-cancel" onClick={() => navigate(-1)}>취소</button>
             <button className="check-password-submit" onClick={handlePasswordCheck}>확인</button>
           </div>
-        </div>
+        </section>
       </Page>
     </Background>
   );

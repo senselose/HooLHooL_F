@@ -1,3 +1,4 @@
+
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from './userReducer';
 import {
@@ -11,13 +12,11 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-
 // persist 설정
 const persistConfig = {
   key: 'root',
   storage,
 }
-
 const persistedReducer = persistReducer(persistConfig, userReducer);
 
 const store = configureStore({
@@ -31,6 +30,5 @@ const store = configureStore({
       },
     }),
 });
-
 export const persistor = persistStore(store);
 export default store;

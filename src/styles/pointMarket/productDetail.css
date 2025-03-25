@@ -24,6 +24,9 @@
   position: relative;
 }
 
+.product-detail-header .back-button-fixed{
+  left: 5px;
+}
 
 /* 포인트 정보 컨테이너 */
 .user-point-container {

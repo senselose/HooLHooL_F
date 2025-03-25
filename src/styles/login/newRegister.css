@@ -1,24 +1,27 @@
+
 /* Container 스타일 */
 .register-container {
   width: 100%;
-  max-width: 390px;
-  height: 100vh;
+  max-width: 480px;
+  height: auto;
+  box-sizing: border-box;
 }
 
+
 /* Header 스타일 */
-.register-container .register-header h1 {
+.register-container .register-title h1 {
   width: 100%;
   padding-top: 25%;
-  padding-bottom: 10%;
+  padding-bottom: 20px;
   text-align: left;
-  margin: 5% 5% 2% 5%;
+  padding: 20% 5% 2% 5%;
 }
 
 /* Form 스타일 */
 .register-form {
   width: 100%;
-  max-width: 375px;
-  height: 100vh;
+  max-width: 480px;
+  height: auto;
   padding: 5% 10%;
 }
 
@@ -29,15 +32,16 @@
   align-items: flex-start; /* 왼쪽 정렬 */
   gap: 15px;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .step input {
   border: none;
-  padding: 10px;
+  padding: 15px;
   border-radius: 30px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  width: 90%;
+  width: 100%;
 }
 
 
@@ -59,6 +63,7 @@
   background-color: black;
   color: white;
   cursor: pointer;
+  
 }
 
 .step-buttons button:disabled {
