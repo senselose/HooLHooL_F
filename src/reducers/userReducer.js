@@ -3,6 +3,8 @@ const initialState = {
   nickname: null,
   point: null,
   isAuthenticated: false,
+  nickname: null,
+  profilePicture: null,
 };
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -11,7 +13,7 @@ const userReducer = (state = initialState, action) => {
         ...state,
         userId: action.payload.userId,
         nickname: action.payload.nickname,
-        point: action.payload.point,
+        profilePicture: action.payload.profileImage,
         isAuthenticated: true,
       };
     case 'LOGOUT':

@@ -285,22 +285,27 @@ const handleLogin = async (e) => {
       console.log(response.data.userId)
       
       if (response.data.token) {
-        // 서버에서 반환한 토큰을 로컬 스토리지에 저장
-        localStorage.setItem("token", response.data.token);
-  
-        // Redux에 userId 저장
-        dispatch({
-          type: 'SET_USER_ID',
-          payload: response.data.userId, // 서버에서 반환된 userId
-        });
-  
-        // 페이드 아웃 애니메이션 및 페이지 전환
+        // 서버에서 반환한 데이터
+        const { userId, nickname, profilePicture, token } = response.data;
 
+        // 토큰을 로컬 스토리지에 저장
+        localStorage.setItem("token", token);
+        localStorage.setItem("userId", userId);
+        localStorage.setItem("nickname", nickname);
+        localStorage.setItem("profilePicture", profilePicture);
+
+        // Redux에 사용자 정보 저장
+        dispatch({
+            type: 'SET_USER',
+            payload: { userId, nickname, profilePicture },
+        });
+
+        // 페이드 아웃 애니메이션 및 페이지 전환
         setTimeout(() => {
-          setFadeOut(true); // 페이드 아웃 시작
-          setTimeout(() => navigate('/MyPage'), 500); // 메인으로 이동
+            setFadeOut(true); // 페이드 아웃 시작
+            setTimeout(() => navigate('/MyPage'), 500); // 마이페이지로 이동
         }, 2000); // 로딩 지속 시간
-      } else {
+      }  else {
         alert("로그인 실패");
         setIsLoading(false); // 로딩 종료
       }

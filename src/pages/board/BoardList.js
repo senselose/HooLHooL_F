@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../../styles/board/boardList.css";
@@ -7,6 +8,7 @@ import IconHeart from "assets/icon/IconHeart.png"; // 좋아요 아이콘
 import IconComment from "assets/icon/IconCommentWhite.png"; // 댓글 아이콘
 const BoardList = () => {
   const navigate = useNavigate();
+  const { boardId } = useParams();
   const [posts, setPosts] = useState([]);
   const [currentType, setCurrentType] = useState("POSITIVE");
   const [sortOption, setSortOption] = useState("latest");
@@ -14,6 +16,9 @@ const BoardList = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const buttonRefs = useRef([]);
+  const [likeCounts, setLikeCounts] = useState(0);
+  const [commentCounts, setCommentCounts] = useState({});
+
   useEffect(() => {
     setPosts([]);
     setPage(0);
@@ -43,9 +48,18 @@ const BoardList = () => {
       // API 응답 데이터를 콘솔에 출력하여 디버깅
       console.log("API 응답 데이터:", response.data.content);
       const newPosts = response.data.content || [];
+
+      // 게시글 목록을 상태에 저장
       setPosts((prevPosts) =>
         pageNumber === 0 ? newPosts : [...prevPosts, ...newPosts]
       );
+
+      // 각 게시글의 좋아요 수를 가져옴
+      newPosts.forEach((post) => {
+        fetchLikeCount(post.boardId); // 총 좋아요 수 가져오기
+        fetchCommentCount(post.boardId);  // 총 댓글 수 가져오기
+      });
+
       setPage(pageNumber + 1);
       setHasMore(newPosts.length > 0);
     } catch (error) {
@@ -54,6 +68,7 @@ const BoardList = () => {
       setIsLoading(false);
     }
   };
+
   const formatDate = (dateString) => {
     const now = new Date();
     const date = new Date(dateString);
@@ -82,6 +97,37 @@ const BoardList = () => {
       indicator.style.width = `${buttonRect.width}px`;
     }
   };
+
+  // 좋아요 개수
+  const fetchLikeCount = async (boardId) => {
+    try {
+        const response = await axios.get(`/api/v1/likes/BOARD/${boardId}/count`);
+        console.log(`게시글 ${boardId} 좋아요 개수 응답:`, response.data);
+
+        setLikeCounts((prevCounts) => ({
+            ...prevCounts,
+            [boardId]: response.data, // 개별 게시글 ID를 키로 저장
+        }));
+    } catch (error) {
+        console.error(`게시글 ${boardId} 좋아요 개수 가져오기 실패`, error);
+    }
+  };  
+
+  // 댓글 갯수 (댓글 수 + 대댓글 수)
+  const fetchCommentCount = async (boardId) => {
+    try {
+        const response = await axios.get(`/api/v1/comments/count/${boardId}`);
+        console.log(`게시글 ${boardId} 총 댓글 개수 응답:`, response.data);
+
+        setCommentCounts((prevCounts) => ({
+            ...prevCounts,
+            [boardId]: response.data, // 개별 게시글 ID를 키로 저장
+        }));
+    } catch (error) {
+        console.error(`게시글 ${boardId} 총 댓글 개수 가져오기 실패`, error);
+    }
+  };
+
   useEffect(() => {
     const activeButton = buttonRefs.current[0];
     const indicator = document.querySelector(".active-indicator");
@@ -152,7 +198,7 @@ const BoardList = () => {
               <h4 className="post-title">{post.title}</h4>
               <div className="post-meta">
                 <span>{formatDate(post.cDate)}</span>
-                <span> | 조회 {post.views || 0}</span>
+                <span> | 조회 {post.view || 0}</span>
               </div>
             </div>
             {/* 오른쪽 컨텐츠 */}
@@ -169,11 +215,11 @@ const BoardList = () => {
               <div className="post-stats">
                 <span className="post-likes">
                   <img src={IconHeart} alt="좋아요" className="icon" />
-                  {post.likes || 0}
+                  {likeCounts[post.boardId] || 0}
                 </span>
                 <span className="post-comments">
                   <img src={IconComment} alt="댓글" className="icon" />
-                  {post.comments || 0}
+                  {commentCounts[post.boardId] || 0}
                 </span>
               </div>
             </div>

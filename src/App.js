@@ -13,7 +13,7 @@ import Menu from 'pages/menu/menu'
 import QuestList from 'pages/menu/QuestList';
 
 // import Board from './components/board/Board';
-import BoardForm from 'pages/board/boardForm';
+import BoardForm from 'pages/board/BoardForm';
 import BoardList from 'pages/board/BoardList';
 import BoardDetail from 'pages/board/BoardDetail';
 
