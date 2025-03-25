@@ -102,7 +102,7 @@ const ProductDetail = () => {
       <Page scrollable={false}>
         <section className="section-product-detail-page">
           <div className="product-detail-header">
-            <BackButton onClick={() => navigate(-1)} />
+            <BackButton className="back-button-fixed"/>
             <p>상품 상세 페이지</p>
           </div>
 

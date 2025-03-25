@@ -1,3 +1,4 @@
+// 원복한거 클린한 코드
 import React, { useState } from "react";
 import { CSSTransition } from "react-transition-group";
 import Page from "components/styles/Page";
@@ -24,6 +25,8 @@ const LoginPage = () => {
     e.preventDefault();
     setInProp(false); // 로그인 시 애니메이션 종료
 
+
+
     setTimeout(async () => {
       try {
         const response = await axios.post(
@@ -47,8 +50,11 @@ const LoginPage = () => {
   return (
     <Background type="default_blur">
       <Page className="login-page" scrollable={false} >
-        <div className="login-page-backbutton">
+        {/* <div className="login-page-backbutton">
           <BackButton onClick={() => navigate(-1)} />
+        </div> */}
+        <div>
+          <BackButton variant="middle" />
         </div>
         <div id="login-page">
           <div className="fade-in">
